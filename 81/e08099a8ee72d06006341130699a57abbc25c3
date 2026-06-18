@@ -1,0 +1,30 @@
+README.md
+  h_7140a1ee2047ef 12,19
+  s_b37c7964f40a9f::t_6678843bcbd9c5 1-11,13-18,20-31
+site/pland-stripe.html
+  h_7140a1ee2047ef 241-242
+CLAUDE.md
+  h_7140a1ee2047ef 16
+  s_b37c7964f40a9f::t_0b31ed7147b386 1-15,17-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "81e08099a8ee72d06006341130699a57abbc25c3",
+  "prompts": {},
+  "humans": {
+    "h_7140a1ee2047ef": {
+      "author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b37c7964f40a9f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "217f6bca-f741-43c5-915b-348dbdf78a46",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
