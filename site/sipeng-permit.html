@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Isometry Agentic Payment 方向评审：从支付管道转向跨轨道的委托承保与责任层。" />
+<title>Isometry｜Agentic Payment 方向评审</title>
+<style>
+  :root{
+    --bg:#f3f0e9;
+    --paper:#fffdf8;
+    --paper-2:#faf7f0;
+    --ink:#151514;
+    --ink-2:#35322e;
+    --muted:#706b63;
+    --line:#d9d2c6;
+    --line-dark:#aaa094;
+    --orange:#f0643d;
+    --orange-soft:#fff0e9;
+    --green:#167554;
+    --green-soft:#eaf7f1;
+    --blue:#265fcb;
+    --blue-soft:#edf3ff;
+    --gold:#9a6912;
+    --gold-soft:#fff6de;
+    --red:#a83f31;
+    --red-soft:#fff0ed;
+    --purple:#6948c7;
+    --purple-soft:#f2edff;
+    --shadow:0 22px 60px rgba(24,20,14,.10);
+    --shadow-sm:0 9px 26px rgba(24,20,14,.07);
+    --radius:24px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+    background:
+      radial-gradient(circle at 8% 5%,rgba(240,100,61,.12),transparent 25%),
+      radial-gradient(circle at 92% 4%,rgba(38,95,203,.10),transparent 27%),
+      linear-gradient(180deg,#fbf9f4 0%,var(--bg) 56%,#ebe5da 100%);
+  }
+  button,input,select,textarea{font:inherit}
+  button{color:inherit}
+  a{color:inherit}
+  .shell{max-width:1360px;margin:0 auto;padding:20px 22px 76px}
+  .topbar{
+    position:sticky;top:0;z-index:40;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:10px 0 15px;
+    background:linear-gradient(180deg,rgba(251,249,244,.98),rgba(251,249,244,.82),transparent);
+    backdrop-filter:blur(10px);
+  }
+  .brand{display:flex;align-items:center;gap:12px;font-weight:950;letter-spacing:-.025em}
+  .logo{width:40px;height:40px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:12px;background:#fff;box-shadow:4px 4px 0 var(--ink);font-size:18px;transform:rotate(-2deg)}
+  .brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+  .actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+  .btn{border:1px solid var(--line-dark);background:rgba(255,253,248,.92);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;transition:.16s ease}
+  .btn:hover{transform:translateY(-1px);border-color:var(--ink);box-shadow:var(--shadow-sm)}
+  .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+  .statusbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 16px}
+  .status{border:1px solid var(--line);background:rgba(255,253,248,.84);border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .status.done{background:var(--green-soft);border-color:#b7decf;color:#105f43}
+  .status.open{background:var(--gold-soft);border-color:#ead49a;color:#75500d}
+  .status.scope{background:var(--blue-soft);border-color:#c4d2f2;color:#264c8e}
+
+  .card,.panel{background:rgba(255,253,248,.93);border:1px solid rgba(170,160,148,.66);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .hero{display:grid;grid-template-columns:1.18fr .82fr;gap:18px;align-items:stretch}
+  .hero-main{padding:38px 38px 32px;position:relative;overflow:hidden;min-height:490px}
+  .hero-main:before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;right:-125px;top:-150px;background:rgba(240,100,61,.10)}
+  .eyebrow{font-size:11px;color:var(--orange);font-weight:950;letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px;position:relative;z-index:1}
+  h1{margin:0 0 18px;font-size:54px;line-height:1.04;letter-spacing:-.06em;max-width:900px;position:relative;z-index:1}
+  h1 span{color:var(--orange)}
+  .lead{font-size:20px;line-height:1.58;color:var(--ink-2);margin:0 0 22px;max-width:900px;position:relative;z-index:1}
+  .thesis{border:2px solid var(--ink);border-radius:19px;background:#fff;box-shadow:7px 7px 0 var(--ink);padding:17px 18px;font-size:20px;line-height:1.48;font-weight:950;position:relative;z-index:1}
+  .thesis strong{color:var(--orange)}
+  .decision-ask{margin-top:22px;border-top:1px solid var(--line);padding-top:18px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;position:relative;z-index:1}
+  .decision-ask .badge{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:var(--ink);color:#fff;font-size:15px;font-weight:950}
+  .decision-ask b{display:block;font-size:15px;margin-bottom:4px}
+  .decision-ask p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+  .hero-side{display:grid;gap:12px}
+  .side-card{padding:20px;border-radius:var(--radius);background:rgba(255,253,248,.94);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+  .side-card h3{margin:0 0 8px;font-size:18px;letter-spacing:-.025em}
+  .side-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.57}
+  .formula{margin-top:12px;border:1px dashed var(--line-dark);border-radius:15px;padding:12px;background:#fff;font-size:13px;line-height:1.5;font-weight:900}
+  .formula strong{color:var(--orange)}
+  .mini-list{display:grid;gap:7px;margin-top:12px}
+  .mini-item{display:grid;grid-template-columns:25px 1fr;gap:8px;align-items:start;border-radius:13px;background:#fff;border:1px solid var(--line);padding:9px}
+  .mini-item .n{width:23px;height:23px;display:grid;place-items:center;border-radius:7px;background:var(--ink);color:#fff;font-size:10px;font-weight:950}
+  .mini-item b{display:block;font-size:12px;margin-bottom:2px}
+  .mini-item small{display:block;color:var(--muted);font-size:10px;line-height:1.4}
+
+  .section{margin-top:27px;scroll-margin-top:76px}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:13px}
+  .section-head h2{margin:0;font-size:31px;line-height:1.12;letter-spacing:-.045em}
+  .section-head p{margin:0;max-width:620px;text-align:right;color:var(--muted);font-size:13px;line-height:1.5}
+  .panel{padding:25px}
+  .section-kicker{font-size:10px;color:var(--orange);font-weight:950;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+  .callout{border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);border-radius:18px;background:#fff;padding:15px 16px;font-size:16px;line-height:1.55;font-weight:950}
+  .callout em{font-style:normal;color:var(--orange)}
+
+  /* Executive summary */
+  .summary-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .summary-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:15px;min-height:168px}
+  .summary-card .icon{font-size:22px;margin-bottom:9px}
+  .summary-card b{display:block;font-size:14px;line-height:1.35;margin-bottom:7px}
+  .summary-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}
+  .summary-card.done{background:var(--green-soft);border-color:#b8decf}
+  .summary-card.open{background:var(--gold-soft);border-color:#e7d39d}
+  .summary-card.warning{background:var(--red-soft);border-color:#efc6bd}
+
+  /* Concept map */
+  .concept-wrap{display:grid;grid-template-columns:.88fr 1.65fr 1fr .9fr;gap:12px;align-items:stretch}
+  .concept-col{border:1px solid var(--line);border-radius:21px;background:#fff;padding:16px;min-height:405px;position:relative;display:flex;flex-direction:column}
+  .concept-col:not(:last-child):after{content:"→";position:absolute;right:-17px;top:47%;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-weight:950;z-index:3}
+  .concept-label{font-size:10px;color:var(--muted);font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+  .concept-col h3{margin:0 0 7px;font-size:19px;letter-spacing:-.025em}
+  .concept-col>p{margin:0 0 13px;color:var(--muted);font-size:11px;line-height:1.48}
+  .intent-box{border:1px solid var(--line);border-radius:15px;background:var(--paper-2);padding:12px;margin-bottom:9px}
+  .intent-box b{display:block;font-size:12px;margin-bottom:4px}
+  .intent-box small{display:block;color:var(--muted);font-size:10px;line-height:1.42}
+  .concept-quote{margin-top:auto;background:var(--orange-soft);border:1px solid #f2c5b5;border-radius:14px;padding:11px;color:#73331f;font-size:11px;font-weight:850;line-height:1.45}
+  .isometry-col{border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);background:#fffefb}
+  .working-badge{position:absolute;right:13px;top:13px;border-radius:999px;background:var(--gold-soft);border:1px solid #dfca91;color:#76510f;padding:5px 8px;font-size:9px;font-weight:950;letter-spacing:.04em}
+  .layer-stack{display:grid;gap:8px;margin-top:2px}
+  .layer{display:grid;grid-template-columns:31px 1fr;gap:9px;align-items:start;border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px}
+  .layer .i{width:29px;height:29px;border-radius:9px;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:11px;font-weight:950}
+  .layer b{display:block;font-size:12px;margin-bottom:2px}
+  .layer small{display:block;color:var(--muted);font-size:10px;line-height:1.4}
+  .layer.cover{background:var(--green-soft);border-color:#b7ddce}
+  .layer.cover .i{background:var(--green)}
+  .gate{margin-top:11px;background:var(--ink);color:#fff;border-radius:14px;padding:11px;font-size:11px;line-height:1.45;font-weight:850;text-align:center}
+  .gate strong{color:#ffae8a}
+  .rails{display:grid;gap:8px;margin-top:5px}
+  .rail{border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff;display:flex;gap:9px;align-items:center}
+  .rail .r{font-size:18px}
+  .rail b{display:block;font-size:12px;margin-bottom:2px}
+  .rail small{display:block;color:var(--muted);font-size:9px;line-height:1.35}
+  .rail-note{margin-top:auto;border:1px dashed var(--line-dark);border-radius:14px;padding:10px;background:var(--paper-2);color:var(--muted);font-size:10px;line-height:1.45}
+  .merchant-box{border:1px solid var(--line);border-radius:14px;padding:11px;background:#fff;margin-bottom:8px}
+  .merchant-box b{display:block;font-size:12px;margin-bottom:3px}
+  .merchant-box small{display:block;color:var(--muted);font-size:10px;line-height:1.4}
+  .loop{margin-top:auto;background:var(--blue-soft);border:1px solid #c4d2f2;border-radius:14px;padding:11px;color:#234887;font-size:10px;line-height:1.45;font-weight:800}
+  .concept-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:17px}
+  .key-card{border:1px solid var(--line);border-radius:15px;background:#fff;padding:12px}
+  .key-card b{display:block;font-size:12px;margin-bottom:4px}
+  .key-card p{margin:0;color:var(--muted);font-size:10px;line-height:1.42}
+  .key-card.blue{background:var(--blue-soft);border-color:#c3d2f2}
+  .key-card.orange{background:var(--orange-soft);border-color:#f0c4b4}
+  .key-card.green{background:var(--green-soft);border-color:#b7ddce}
+  .execute-rule{margin-top:12px;border-radius:17px;background:var(--ink);color:#fff;padding:14px 16px;text-align:center;font-size:17px;font-weight:950}
+  .execute-rule span{color:#ffad88}
+
+  /* Customers */
+  .customer-shell{display:grid;grid-template-columns:285px 1fr;gap:15px}
+  .customer-tabs{display:grid;gap:8px;align-content:start}
+  .customer-btn{width:100%;text-align:left;border:1px solid var(--line);border-radius:15px;background:#fff;padding:11px;cursor:pointer;display:grid;grid-template-columns:34px 1fr;gap:9px;align-items:center;transition:.16s ease}
+  .customer-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+  .customer-btn.active{border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);background:#fffefb}
+  .customer-btn .emoji{font-size:21px;text-align:center}
+  .customer-btn b{display:block;font-size:12px;margin-bottom:2px}
+  .customer-btn small{display:block;color:var(--muted);font-size:9px;line-height:1.3}
+  .customer-detail{border:1px solid var(--line);border-radius:21px;background:#fff;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:11px;min-height:355px}
+  .detail{border:1px solid var(--line);border-radius:17px;padding:15px;background:#fff}
+  .detail.bad{background:var(--red-soft);border-color:#edc5bb}
+  .detail.good{background:var(--green-soft);border-color:#b7ddce}
+  .detail h3{margin:0 0 8px;font-size:16px}
+  .detail ul{margin:0;padding-left:17px;color:var(--ink-2);font-size:11px;line-height:1.55}
+  .detail li{margin:5px 0}
+  .customer-punch{grid-column:1/-1;border:1px dashed var(--line-dark);border-radius:14px;padding:11px 13px;background:var(--paper-2);font-size:12px;line-height:1.5;font-weight:850}
+  .customer-punch strong{color:var(--orange)}
+
+  /* Market reality */
+  .reality-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .reality-card{border:1px solid var(--line);border-radius:20px;background:#fff;padding:17px}
+  .reality-card h3{margin:0 0 9px;font-size:18px}
+  .reality-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+  .reality-card ul{margin:10px 0 0;padding-left:18px;font-size:11px;line-height:1.52;color:var(--ink-2)}
+  .reality-card li{margin:5px 0}
+  .reality-card.new{background:var(--green-soft);border-color:#b7ddce}
+  .reality-card.not{background:var(--orange-soft);border-color:#f0c4b4}
+  .source-note{margin-top:13px;border-radius:14px;background:var(--paper-2);border:1px dashed var(--line-dark);padding:10px 12px;font-size:10px;line-height:1.45;color:var(--muted)}
+  .source-note a{text-decoration:underline;text-underline-offset:2px}
+
+  /* Permit & clauses */
+  .object-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:16px}
+  .object-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:15px;min-height:190px}
+  .object-card .who{display:inline-block;border-radius:999px;padding:5px 8px;font-size:9px;font-weight:900;background:var(--paper-2);border:1px solid var(--line);margin-bottom:9px}
+  .object-card h3{margin:0 0 7px;font-size:17px}
+  .object-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}
+  .object-card.intent{background:var(--orange-soft);border-color:#f0c4b4}
+  .object-card.permit{background:var(--blue-soft);border-color:#c4d2f2}
+  .object-card.coverage{background:var(--green-soft);border-color:#b7ddce}
+  .clause-layout{display:grid;grid-template-columns:.95fr 1.05fr;gap:13px}
+  .clause-example{border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);border-radius:19px;background:#fff;padding:17px}
+  .clause-example h3{margin:0 0 10px;font-size:18px}
+  .clause-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#181716;color:#fff;border-radius:14px;padding:13px;font-size:11px;line-height:1.55;overflow:auto;white-space:pre-wrap}
+  .clause-table{display:grid;gap:7px}
+  .clause-row{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:13px;background:#fff;padding:10px}
+  .clause-row b{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+  .clause-row span{font-size:11px;line-height:1.45;font-weight:780}
+  .hard-soft{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
+  .term{border:1px solid var(--line);border-radius:15px;background:#fff;padding:12px}
+  .term b{display:block;font-size:12px;margin-bottom:5px}
+  .term p{margin:0;color:var(--muted);font-size:10px;line-height:1.42}
+  .term.covered{background:var(--green-soft);border-color:#b7ddce}
+  .term.conditional{background:var(--blue-soft);border-color:#c4d2f2}
+  .term.optimize{background:var(--gold-soft);border-color:#e6d09a}
+  .term.no{background:var(--red-soft);border-color:#edc5bb}
+
+  /* Card risk integration */
+  .risk-head{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;margin-bottom:15px}
+  .risk-head p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+  .must{border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);border-radius:14px;padding:10px 12px;background:#fff;font-size:12px;font-weight:950;text-align:center;min-width:210px}
+  .three-gates{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .risk-gate{border:1px solid var(--line);border-radius:18px;background:#fff;padding:15px;min-height:210px}
+  .risk-gate .owner{display:inline-block;border-radius:999px;padding:5px 8px;font-size:9px;font-weight:900;border:1px solid var(--line);margin-bottom:9px}
+  .risk-gate h3{margin:0 0 7px;font-size:16px}
+  .risk-gate .question{border-radius:12px;padding:10px;background:var(--paper-2);font-size:12px;font-weight:900;line-height:1.4;margin-bottom:9px}
+  .risk-gate ul{margin:0;padding-left:17px;font-size:10px;line-height:1.48;color:var(--muted)}
+  .risk-gate li{margin:4px 0}
+  .risk-gate.funding{background:var(--blue-soft);border-color:#c4d2f2}
+  .risk-gate.delegate{background:var(--orange-soft);border-color:#f0c4b4}
+  .risk-gate.commerce{background:var(--green-soft);border-color:#b7ddce}
+  .matrix{margin-top:14px;display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .matrix>div{background:#fff;padding:11px;font-size:10px;line-height:1.42}
+  .matrix .head{font-weight:950;background:var(--ink);color:#fff}
+  .matrix b{display:block;font-size:11px;margin-bottom:3px}
+  .first-final{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:14px}
+  .first-final .box{border:1px solid var(--line);border-radius:16px;background:#fff;padding:13px}
+  .first-final .box h3{margin:0 0 6px;font-size:14px}
+  .first-final .box p{margin:0;color:var(--muted);font-size:10px;line-height:1.48}
+  .first-final .first{background:var(--purple-soft);border-color:#d4c8f5}
+  .first-final .final{background:var(--gold-soft);border-color:#e6d09a}
+
+  /* Stablecoin */
+  .stable-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:14px}
+  .stable-verdict{border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);border-radius:19px;background:#fff;padding:18px}
+  .stable-verdict h3{margin:0 0 10px;font-size:22px;letter-spacing:-.03em}
+  .stable-verdict p{margin:0;color:var(--ink-2);font-size:13px;line-height:1.58}
+  .stable-verdict .big{margin-top:14px;border-radius:14px;background:var(--purple-soft);border:1px solid #d4c8f5;padding:12px;color:#4d3791;font-size:14px;font-weight:950;line-height:1.45}
+  .stable-cases{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+  .stable-case{border:1px solid var(--line);border-radius:16px;background:#fff;padding:13px}
+  .stable-case b{display:block;font-size:12px;margin-bottom:4px}
+  .stable-case p{margin:0;color:var(--muted);font-size:10px;line-height:1.43}
+  .not-user{grid-column:1/-1;background:var(--red-soft);border-color:#edc5bb}
+
+  /* Open questions */
+  .open-intro{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-bottom:14px}
+  .open-intro p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+  .progress{min-width:200px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px 12px}
+  .progress-line{height:7px;background:#eee9df;border-radius:999px;overflow:hidden;margin-top:7px}
+  .progress-fill{height:100%;width:0;background:var(--orange);border-radius:999px;transition:.2s ease}
+  .progress b{font-size:11px}
+  .decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .decision-card{border:1px solid var(--line);border-radius:20px;background:#fff;padding:17px;position:relative}
+  .decision-card .qnum{position:absolute;right:14px;top:14px;width:27px;height:27px;display:grid;place-items:center;border-radius:9px;background:var(--ink);color:#fff;font-size:10px;font-weight:950}
+  .decision-card h3{margin:0 42px 6px 0;font-size:16px;line-height:1.35}
+  .decision-card>p{margin:0 0 11px;color:var(--muted);font-size:10px;line-height:1.46}
+  .options{display:grid;gap:7px}
+  .option{display:block;border:1px solid var(--line);border-radius:13px;background:var(--paper-2);padding:9px 10px;cursor:pointer;transition:.14s ease}
+  .option:hover{border-color:var(--line-dark);transform:translateY(-1px)}
+  .option input{display:none}
+  .option .option-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+  .option b{font-size:11px;line-height:1.35}
+  .option small{display:block;color:var(--muted);font-size:9px;line-height:1.38;margin-top:3px}
+  .option .hyp{border-radius:999px;padding:3px 6px;background:var(--gold-soft);border:1px solid #dfca91;color:#76510f;font-size:8px;font-weight:950;white-space:nowrap}
+  .option.selected{border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);background:#fff}
+  .option.selected .option-head:before{content:"✓";display:grid;place-items:center;width:18px;height:18px;border-radius:6px;background:var(--green);color:#fff;font-size:10px;font-weight:950;margin-right:3px;flex:0 0 auto}
+  .decision-card .why{margin-top:9px;border-radius:12px;background:var(--blue-soft);border:1px solid #c4d2f2;padding:9px 10px;color:#244a89;font-size:9px;line-height:1.42}
+  .decision-tools{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .memo{margin-top:14px;border:1px solid var(--line);border-radius:18px;background:#fff;padding:15px}
+  .memo h3{margin:0 0 8px;font-size:15px}
+  .memo textarea{width:100%;min-height:190px;resize:vertical;border:1px solid var(--line);border-radius:14px;background:var(--paper-2);padding:12px;color:var(--ink);font-size:11px;line-height:1.55}
+
+  /* Validation */
+  .truth-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .truth-card{border:1px solid var(--line);border-radius:20px;background:#fff;padding:17px}
+  .truth-card h3{margin:0 0 9px;font-size:17px}
+  .truth-card ol,.truth-card ul{margin:0;padding-left:19px;font-size:11px;line-height:1.55;color:var(--ink-2)}
+  .truth-card li{margin:6px 0}
+  .truth-card.must-true{background:var(--green-soft);border-color:#b7ddce}
+  .truth-card.kill{background:var(--red-soft);border-color:#edc5bb}
+  .proof-step{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}
+  .proof{border:1px solid var(--line);border-radius:15px;background:#fff;padding:12px}
+  .proof .n{width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:var(--ink);color:#fff;font-size:10px;font-weight:950;margin-bottom:8px}
+  .proof b{display:block;font-size:11px;margin-bottom:4px}
+  .proof p{margin:0;color:var(--muted);font-size:9px;line-height:1.42}
+
+  /* Final ask */
+  .final-panel{background:var(--ink);color:#fff;border-color:var(--ink);padding:29px}
+  .final-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:18px;align-items:start}
+  .final-panel h2{margin:0 0 12px;font-size:35px;letter-spacing:-.045em;line-height:1.12}
+  .final-panel p{margin:0;color:#d8d3cb;font-size:14px;line-height:1.58}
+  .final-thesis{margin-top:16px;border:1px solid #5c5852;border-radius:17px;background:#23211f;padding:15px;font-size:18px;line-height:1.48;font-weight:950}
+  .final-thesis span{color:#ff9b75}
+  .boss-box{border:1px solid #5c5852;border-radius:19px;background:#23211f;padding:17px}
+  .boss-box h3{margin:0 0 10px;font-size:16px}
+  .boss-choice{display:grid;gap:8px}
+  .boss-option{border:1px solid #66615a;border-radius:13px;padding:10px 11px;background:#1b1a18;font-size:11px;line-height:1.43}
+  .boss-option b{color:#fff;display:block;margin-bottom:3px}
+  .boss-option span{color:#bdb8b0}
+
+  .footer{margin-top:24px;border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:10px;line-height:1.45}
+  .footer a{text-decoration:underline;text-underline-offset:2px}
+  .compact-only{display:none}
+  body.compact .detail-section{display:none}
+  body.compact .compact-only{display:block}
+  body.compact .hero-main{min-height:auto}
+  body.compact .hero{grid-template-columns:1fr}
+  body.compact .hero-side{grid-template-columns:repeat(2,1fr)}
+
+  @media(max-width:1050px){
+    .hero,.final-grid{grid-template-columns:1fr}
+    .summary-grid{grid-template-columns:repeat(3,1fr)}
+    .concept-wrap{grid-template-columns:1fr 1fr}
+    .concept-col:not(:last-child):after{display:none}
+    .customer-shell,.clause-layout,.stable-grid{grid-template-columns:1fr}
+    .customer-tabs{grid-template-columns:repeat(2,1fr)}
+    .decision-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:760px){
+    .shell{padding:14px 13px 55px}
+    .topbar{align-items:flex-start}
+    .actions{max-width:55%}
+    h1{font-size:39px}
+    .lead{font-size:17px}
+    .hero-main{padding:27px 22px}
+    .summary-grid,.object-grid,.hard-soft,.three-gates,.proof-step,.concept-bottom{grid-template-columns:1fr}
+    .concept-wrap{grid-template-columns:1fr}
+    .customer-detail,.reality-grid,.truth-grid,.first-final{grid-template-columns:1fr}
+    .customer-tabs{grid-template-columns:1fr}
+    .customer-punch{grid-column:auto}
+    .matrix{grid-template-columns:1fr}
+    .matrix .head{display:none}
+    .stable-cases{grid-template-columns:1fr}
+    .not-user{grid-column:auto}
+    .section-head{align-items:flex-start;flex-direction:column}
+    .section-head p{text-align:left}
+    .hero-side{grid-template-columns:1fr!important}
+  }
+  @media print{
+    body{background:#fff}
+    .topbar,.decision-tools{display:none!important}
+    .shell{max-width:none;padding:0}
+    .card,.panel,.side-card{box-shadow:none;break-inside:avoid}
+    .section{break-inside:avoid;margin-top:18px}
+    .detail-section{display:block!important}
+    .hero{grid-template-columns:1.18fr .82fr}
+    .decision-grid{grid-template-columns:1fr 1fr}
+    @page{size:A4;margin:12mm}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">I</div>
+      <div>Isometry × Agentic Payment<small>Direction review · 2026-06-18</small></div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="modeBtn" type="button">摘要视图</button>
+      <button class="btn" id="jumpOpen" type="button">只看开放问题</button>
+      <button class="btn" id="printBtn" type="button">打印 / 导出 PDF</button>
+      <button class="btn primary" id="copyMemoTop" type="button">复制决策摘要</button>
+    </div>
+  </header>
+
+  <div class="statusbar">
+    <span class="status done">已形成共识：方向与稳定币原则</span>
+    <span class="status open">未拍板：Permit、承保、赔付与法律结构</span>
+    <span class="status scope">本报告不讨论 GTM</span>
+  </div>
+
+  <section class="hero">
+    <div class="card hero-main">
+      <div class="eyebrow">产品方向评审</div>
+      <h1>Isometry 是否应该成为 Agent 交易的<span>责任层</span>？</h1>
+      <p class="lead">我们的候选产品不是让 Agent 更容易付款，而是让普通人和机构敢把付款委托给 Agent：交易前把意图变成可裁决条件，交易中拥有否决权，交易后按证据先赔后追。</p>
+      <div class="thesis">候选定位：<strong>跨支付轨道的委托承保层</strong>——编译意图、执行边界、签发保障、路由责任。</div>
+      <div class="decision-ask">
+        <div class="badge">?</div>
+        <div><b>本次希望得到的判断</b><p>这是否是值得 Isometry 继续投入产品验证的方向？若是，是否认可下方红线，并允许团队围绕开放问题做下一轮设计，而不是去做钱包、支付 Rail 或 GTM。</p></div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="side-card">
+        <h3>为什么不是“再做一个 Permit”</h3>
+        <p>Mandate、受限支付 Token、消费控制已在快速标准化。真正未被验证的产品赌注，是谁愿意把这些零件组合成可承保、可理赔、可追偿的责任产品。</p>
+        <div class="formula">Token / Mandate / Policy <strong>≠</strong> Responsibility<br/>Hard gate + Evidence + Guarantee + Remedy <strong>= 候选创新</strong></div>
+      </div>
+      <div class="side-card">
+        <h3>方向成立的必要条件</h3>
+        <div class="mini-list">
+          <div class="mini-item"><div class="n">1</div><div><b>必须拥有否决权</b><small>不能只给风险分；被承保交易必须在结算前经过 Isometry。</small></div></div>
+          <div class="mini-item"><div class="n">2</div><div><b>只承保可裁决条款</b><small>“金额 ≤ 400 美元”可以；“体验好”默认不可以。</small></div></div>
+          <div class="mini-item"><div class="n">3</div><div><b>赔付与追偿均可运行</b><small>谁先赔用户与谁最终承担损失，需要分开设计。</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact-only">
+    <div class="panel">
+      <div class="callout">核心结论：我们不是在信用卡与稳定币之间选管道，而是在所有管道之上建立 <em>Agent 交易的委托承保与责任层</em>。方向值得验证，但 Permit 如何产生、承保到哪一层、谁提供风险资本、法律上以什么身份承诺，均未拍板。</div>
+    </div>
+  </section>
+
+  <section class="section" id="summary">
+    <div class="section-head">
+      <div><div class="section-kicker">Executive summary</div><h2>目前形成的判断</h2></div>
+      <p>下面把“已形成共识”“工作假设”和“仍需拍板”分开，避免把研究结论包装成已经确定的产品。</p>
+    </div>
+    <div class="panel">
+      <div class="summary-grid">
+        <div class="summary-card done"><div class="icon">🎯</div><b>真正问题不是付款动作</b><p>痛点是委托、边界、证据、责任、争议与补救；真正买家是承担损失和用户关系的人。</p></div>
+        <div class="summary-card done"><div class="icon">🛤️</div><b>多轨执行，统一责任</b><p>卡、银行、稳定币均可执行。稳定币可服务内部准备金和结算，但普通用户不应被迫使用。</p></div>
+        <div class="summary-card done"><div class="icon">🛡️</div><b>信用卡风控必须接</b><p>Issuer/PSP 主判资金与凭证风险；Isometry 补上 Agent 委托与交易符合性，不重造卡网络。</p></div>
+        <div class="summary-card open"><div class="icon">📜</div><b>Permit 与承保仍未定</b><p>谁编译、谁确认、哪些条款由 Isometry 签字保障、赔多少，仍是核心开放问题。</p></div>
+        <div class="summary-card warning"><div class="icon">🚫</div><b>不承保“用户感觉”</b><p>主观满意、性价比、体验好坏不能直接进入赔付；必须结构化或明确排除。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section detail-section" id="concept">
+    <div class="section-head">
+      <div><div class="section-kicker">Product concept</div><h2>产品概念：Intent 与 Settlement 之间的责任层</h2></div>
+      <p>以下是便于评审的工作模型，不代表三类对象和边界已经拍板。</p>
+    </div>
+    <div class="panel">
+      <div class="concept-wrap">
+        <div class="concept-col">
+          <div class="concept-label">Authority</div>
+          <h3>用户 / 企业</h3>
+          <p>决定经济目标和可接受边界，而不是管理钱包、私钥或支付细节。</p>
+          <div class="intent-box"><b>自然语言意图</b><small>“航班取消后，最多 400 美元，今晚到达，最多一次中转，必须可退款。”</small></div>
+          <div class="intent-box"><b>组织政策</b><small>Approved vendor、预算、审批、成本中心、发票与税务要求。</small></div>
+          <div class="concept-quote">用户定义“想要什么”；不等于用户需要自己写金融规则。</div>
+        </div>
+        <div class="concept-col isometry-col">
+          <span class="working-badge">WORKING MODEL · 未拍板</span>
+          <div class="concept-label">Responsibility layer</div>
+          <h3>Isometry</h3>
+          <p>把意图编译成机器条件，决定自己敢保障哪些条款，并在交易前执行。</p>
+          <div class="layer-stack">
+            <div class="layer"><div class="i">1</div><div><b>Intent Mandate</b><small>记录用户或组织的原始委托、授权人和上下文。</small></div></div>
+            <div class="layer"><div class="i">2</div><div><b>Execution Permit</b><small>可执行谓词：金额、商户、商品、时间、审批、容差与来源。</small></div></div>
+            <div class="layer cover"><div class="i">3</div><div><b>Coverage Certificate</b><small>Isometry 明确签字：哪些条款受保障、何时赔、赔多少、向谁追。</small></div></div>
+            <div class="layer"><div class="i">4</div><div><b>Evidence & Remedy</b><small>冻结证据、自动裁决、先赔用户、退款/争议/追偿。</small></div></div>
+          </div>
+          <div class="gate"><strong>被承保交易必须通过 Isometry 闸门</strong><br/>否则 Isometry 没有资格承诺赔付。</div>
+        </div>
+        <div class="concept-col">
+          <div class="concept-label">Execution rails</div>
+          <h3>资金执行</h3>
+          <p>Rail 负责把钱送到；它不单独决定这笔交易是否符合用户交给 Agent 的任务。</p>
+          <div class="rails">
+            <div class="rail"><div class="r">💳</div><div><b>信用卡 / 网络 Token</b><small>认证、授权、盗卡风控、争议机制。</small></div></div>
+            <div class="rail"><div class="r">🏦</div><div><b>银行 / 实时支付</b><small>账户资金与银行规则。</small></div></div>
+            <div class="rail"><div class="r">◈</div><div><b>稳定币</b><small>内部准备金、垫赔、结算与可编程资金控制。</small></div></div>
+          </div>
+          <div class="rail-note">原则：多轨执行，统一责任标准。用户不应因 Agentic Payment 被迫成为 crypto 用户。</div>
+        </div>
+        <div class="concept-col">
+          <div class="concept-label">Commerce & remedy</div>
+          <h3>商户 / PSP / Issuer</h3>
+          <p>商户提供报价和履约事实；PSP/Issuer 提供资金认证、授权、退款与争议网络。</p>
+          <div class="merchant-box"><b>Quote / Order</b><small>商品、价格、税费、退款规则、Merchant ID、最终 Capture。</small></div>
+          <div class="merchant-box"><b>Fulfillment</b><small>发货、服务交付、退款与售后。</small></div>
+          <div class="merchant-box"><b>Dispute / Recovery</b><small>Reversal、退款、Chargeback、Representment、商户追偿。</small></div>
+          <div class="loop">Evidence Packet 返回 Isometry：决定由谁先赔用户、最终向谁追偿。</div>
+        </div>
+      </div>
+      <div class="concept-bottom">
+        <div class="key-card blue"><b>① Funding Authorization</b><p>这是不是合法资金来源？卡是否被盗？由 Issuer / PSP 主判。</p></div>
+        <div class="key-card orange"><b>② Delegation Authorization</b><p>这个 Agent 是否被授权完成这项任务？由 Isometry 主判。</p></div>
+        <div class="key-card green"><b>③ Commercial Conformance</b><p>最终订单是否符合金额、商户、商品和时间条件？共同验证。</p></div>
+      </div>
+      <div class="execute-rule">EXECUTE = <span>资金授权通过</span> ∧ <span>委托授权通过</span> ∧ <span>订单符合条件</span></div>
+    </div>
+  </section>
+
+  <section class="section detail-section" id="customers">
+    <div class="section-head">
+      <div><div class="section-kicker">Who was structurally excluded</div><h2>环境变量钱包放弃了谁，我们为什么可能接住</h2></div>
+      <p>这不是客群优先级或 GTM，而是产品原语决定的结构性可达范围。</p>
+    </div>
+    <div class="panel">
+      <div class="customer-shell">
+        <div class="customer-tabs" id="customerTabs"></div>
+        <div class="customer-detail">
+          <div class="detail bad"><h3>现有 wallet / x402 模式为什么 reach 不到</h3><ul id="customerBad"></ul></div>
+          <div class="detail good"><h3>责任层提供了什么</h3><ul id="customerGood"></ul></div>
+          <div class="customer-punch" id="customerPunch"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section detail-section" id="innovation">
+    <div class="section-head">
+      <div><div class="section-kicker">What is actually new</div><h2>创新不应建立在“别人没有 Permit”上</h2></div>
+      <p>目前市场事实要求我们把差异化向责任、运营与资产负债表推进，而不是停在 Token 或协议层。</p>
+    </div>
+    <div class="panel">
+      <div class="reality-grid">
+        <div class="reality-card not">
+          <h3>已经在发生：不能当作独占创新</h3>
+          <p>行业已经在标准化 Agent 的 Mandate、范围受限的支付凭证、消费控制、认证和可追踪性。</p>
+          <ul>
+            <li>用户意图与预授权条件可以被记录为可验证 Mandate。</li>
+            <li>支付凭证可以绑定商户、时间、金额并隐藏底层卡信息。</li>
+            <li>网络层已加入 Agent 身份、认证、消费控制与争议信号。</li>
+          </ul>
+        </div>
+        <div class="reality-card new">
+          <h3>候选创新：把零件做成责任产品</h3>
+          <p>Isometry 的产品赌注应是：只为自己能验证和执行的条款签发保障，并承担理赔、垫付和追偿运营。</p>
+          <ul>
+            <li>Coverage Certificate：明确“什么错由谁赔”。</li>
+            <li>Hard Gate：承保前拥有交易否决权。</li>
+            <li>Evidence Packet：让裁决和追偿可自动化。</li>
+            <li>Risk Capital：准备金、限额、定价与再担保。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="source-note">外部事实参考（官方来源）：<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noreferrer">Google AP2 / Mandates</a>；<a href="https://docs.stripe.com/agentic-commerce/concepts/shared-payment-tokens" target="_blank" rel="noreferrer">Stripe Shared Payment Tokens</a>；<a href="https://www.visa.com/en-us/solutions/intelligent-commerce" target="_blank" rel="noreferrer">Visa Intelligent Commerce</a>。这些来源说明“授权与控制”正在成为基础设施；本报告据此把产品赌注推向承保与 Remedy，而非竞品对比。</div>
+    </div>
+  </section>
+
+  <section class="section detail-section" id="permit">
+    <div class="section-head">
+      <div><div class="section-kicker">Permit & underwriting</div><h2>谁定义 Permit，为什么 Isometry 赔</h2></div>
+      <p>正确答案不是“Permit 全由 Isometry 定”，而是分清经济意图、执行语义与承保承诺。</p>
+    </div>
+    <div class="panel">
+      <div class="object-grid">
+        <div class="object-card intent"><span class="who">用户 / 企业决定</span><h3>Intent Mandate</h3><p>用户定义目的、预算和偏好；企业追加供应商、审批、税务和预算政策。Isometry 不替用户决定买什么。</p></div>
+        <div class="object-card permit"><span class="who">待拍板：谁编译</span><h3>Execution Permit</h3><p>把自然语言和组织政策转换为机器谓词。候选模式包括用户直接配置、Isometry 编译后确认、或平台模板。</p></div>
+        <div class="object-card coverage"><span class="who">Isometry 决定是否签字</span><h3>Coverage Certificate</h3><p>Isometry 只为有控制权、有证据、有清晰 Remedy 的条款承保。它赔的理由，是自己主动签了这份保障。</p></div>
+      </div>
+      <div class="clause-layout">
+        <div class="clause-example">
+          <h3>一个可承保条款必须长这样</h3>
+          <div class="clause-code">{
+  "clause": "final_total &lt;= 400 USD",
+  "author": "user",
+  "source_of_truth": "final_capture",
+  "validator": "isometry",
+  "evaluation_time": "payment_authorization",
+  "tolerance": "0 USD",
+  "guarantor": "isometry",
+  "remedy": "reimburse_excess",
+  "liability_cap": "400 USD"
+}</div>
+        </div>
+        <div class="clause-table">
+          <div class="clause-row"><b>Predicate</b><span>什么算通过或违反；必须是确定的机器表达。</span></div>
+          <div class="clause-row"><b>Source of truth</b><span>以商户签名报价、最终 Capture、Issuer 认证还是第三方数据为准。</span></div>
+          <div class="clause-row"><b>Evaluation time</b><span>在付款授权、Capture、履约时还是事后某一时点判断。</span></div>
+          <div class="clause-row"><b>Tolerance</b><span>价格漂移、时间偏差、分类置信度允许多少。</span></div>
+          <div class="clause-row"><b>Guarantor & remedy</b><span>谁签字、违反时赔超额、赔全单、垫退款还是只协助争议。</span></div>
+        </div>
+      </div>
+      <div class="hard-soft">
+        <div class="term covered"><b>硬约束：可直接承保</b><p>金额、商户、SKU、时间、数量、审批、Permit 有效期。</p></div>
+        <div class="term conditional"><b>可验证事实：条件承保</b><p>报价时计划到达时间、退款条款、库存；必须指定事实源和时点。</p></div>
+        <div class="term optimize"><b>优化目标：需定义基准</b><p>“最低价”要先定义比较集合、窗口和总价口径，才能裁决。</p></div>
+        <div class="term no"><b>主观偏好：默认不承保</b><p>性价比高、舒服、靠谱、有氛围、用户事后不满意。</p></div>
+      </div>
+      <div class="callout" style="margin-top:14px">因此应删除“Agent 违反用户预期”这一责任项。准确分类应是：<em>受保障条款被违反</em>、优化目标未达、商户履约失败或用户偏好不满意。</div>
+    </div>
+  </section>
+
+  <section class="section detail-section" id="risk">
+    <div class="section-head">
+      <div><div class="section-kicker">Card fraud integration</div><h2>现有信用卡欺诈风控：必须接，但不能代替 Isometry</h2></div>
+      <p>系统化答案不是“接一个欺诈分数”，而是把资金风险、委托风险、订单风险和争议追偿拆开。</p>
+    </div>
+    <div class="panel">
+      <div class="risk-head">
+        <p>信用卡风控擅长识别盗卡、账户接管、设备与行为异常；它不天然知道“这个合法持卡人的 Agent 是否被允许买这一张票”。Isometry 不应重做 Issuer，而应把 Agent 的任务、Permit、Quote 和证据补进现有支付网络。</p>
+        <div class="must">原则：双方都有否决权<br/>谁也不能覆盖谁</div>
+      </div>
+      <div class="three-gates">
+        <div class="risk-gate funding"><span class="owner">Issuer / PSP 主责</span><h3>资金与身份风控</h3><div class="question">“钱是不是你的，凭证是否安全？”</div><ul><li>Network token / 3DS / 强认证</li><li>设备、地理、Velocity、账户接管</li><li>Authorization、盗卡争议与网络规则</li></ul></div>
+        <div class="risk-gate delegate"><span class="owner">Isometry 主责</span><h3>委托授权风控</h3><div class="question">“这个 Agent 有权做这件事吗？”</div><ul><li>授权人、Agent identity、任务上下文</li><li>Permit 版本、审批、有效期、撤销</li><li>Prompt injection 导致的越权是否被拦</li></ul></div>
+        <div class="risk-gate commerce"><span class="owner">Isometry + 商户</span><h3>商业符合性</h3><div class="question">“最终订单是否符合被批准条件？”</div><ul><li>Merchant ID、商品、数量、价格与税费</li><li>Quote / Cart hash / Final capture</li><li>退款规则、履约事实与数据真实性</li></ul></div>
+      </div>
+      <div class="matrix">
+        <div class="head">事件</div><div class="head">用户侧先怎么处理</div><div class="head">最终损失归属</div><div class="head">Isometry 的角色</div>
+        <div><b>盗卡 / 账户接管</b>凭证或身份被非法控制</div><div>冻结、认证或走欺诈争议</div><div>按网络、合同与控制失效方归责</div><div>提供 Agent 证据；自身身份控制失效时承担相应责任</div>
+        <div><b>受保障 Permit 被错误放行</b>超额、错商户、错商品、缺审批</div><div>按证书自动赔付</div><div>Isometry</div><div>先赔且最终承担；这是核心产品承诺</div>
+        <div><b>商户虚假报价 / 不履约</b>可退款却拒退、发错货、未发货</div><div>退款、争议；可按等级先垫</div><div>商户 / 收单 / 数据提供方</div><div>证据路由、可选垫付，再追偿</div>
+        <div><b>范围内但选择不佳</b>没买到最低价、用户后悔</div><div>正常退货或用户承担</div><div>用户 / 商户政策</div><div>默认不赔；除非另有可裁决优化保障</div>
+      </div>
+      <div class="first-final">
+        <div class="box first"><h3>谁先赔用户</h3><p>是产品体验问题。Isometry 可用准备金即时垫付，让用户不必等待商户、PSP 或卡组织完成漫长争议。</p></div>
+        <div class="box final"><h3>谁最终承担损失</h3><p>是证据与合同问题。Isometry 根据失败来源向商户、PSP、Issuer、数据方或自身风险池归集损失。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section detail-section" id="stablecoin">
+    <div class="section-head">
+      <div><div class="section-kicker">Stablecoin verdict</div><h2>要不要用稳定币：底层可以必须用，用户不应必须用</h2></div>
+      <p>这是目前最明确的架构结论之一。</p>
+    </div>
+    <div class="panel">
+      <div class="stable-grid">
+        <div class="stable-verdict"><h3>多轨执行，统一责任标准</h3><p>消费者继续用银行卡，商户继续收法币；Isometry 可以在内部使用稳定币提升赔付、结算和资金控制效率。稳定币是责任产品的资金工具，不是用户入口。</p><div class="big">稳定币服务于 Guarantee；不能让 Guarantee 反过来服务于发币。</div></div>
+        <div class="stable-cases">
+          <div class="stable-case"><b>赔付准备金</b><p>为已签发 Coverage Certificate 配置可实时计量的风险敞口和流动性。</p></div>
+          <div class="stable-case"><b>即时垫付退款</b><p>先让用户拿回钱，再走商户退款、网络争议或追偿。</p></div>
+          <div class="stable-case"><b>多方内部结算</b><p>商户、平台、Isometry、担保方之间更快清分。</p></div>
+          <div class="stable-case"><b>可编程资金控制</b><p>Escrow、hold、release、限额与风险池隔离。</p></div>
+          <div class="stable-case not-user"><b>用户不需要做的事</b><p>不必买稳定币、创建钱包、保管私钥、理解 gas、选择链。若这些成为前提，产品又回到了“开发者 ∩ crypto”的窄圈。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="open">
+    <div class="section-head">
+      <div><div class="section-kicker">Open decisions</div><h2>仍未拍板的问题：保留多个可选方案</h2></div>
+      <p>每题默认标出“当前工作假设”，用于显式呈现未决项，不代表团队已决定。点击选项可生成一份决策摘要。</p>
+    </div>
+    <div class="panel">
+      <div class="open-intro">
+        <p><strong>原则：</strong>开放问题不是工程实现细节，而是决定 Isometry 到底承担什么责任、需要什么控制权、是否形成商业护城河的产品选择。</p>
+        <div class="progress"><b id="progressText">已记录 0 / 8 项选择</b><div class="progress-line"><div class="progress-fill" id="progressFill"></div></div></div>
+      </div>
+      <div class="decision-grid" id="decisionGrid"></div>
+      <div class="decision-tools">
+        <button class="btn primary" id="copyMemo" type="button">复制当前决策摘要</button>
+        <button class="btn" id="resetDecisions" type="button">恢复工作假设</button>
+        <button class="btn" id="clearDecisions" type="button">清空选择</button>
+        <span id="copyState" style="font-size:10px;color:var(--muted)"></span>
+      </div>
+      <div class="memo"><h3>自动生成的评审摘要</h3><textarea id="memoText" readonly></textarea></div>
+    </div>
+  </section>
+
+  <section class="section detail-section" id="validation">
+    <div class="section-head">
+      <div><div class="section-kicker">Product truth test</div><h2>方向成立必须证明什么；什么情况应停止</h2></div>
+      <p>下一步不是做市场地图或推广，而是验证责任产品是否真实可运行。</p>
+    </div>
+    <div class="panel">
+      <div class="truth-grid">
+        <div class="truth-card must-true"><h3>必须为真</h3><ol><li>常见委托能被可靠地编译成机器可裁决条款，并由用户理解和确认。</li><li>Isometry 能在被承保交易结算前拥有硬否决权。</li><li>证据足够判断失败来源，并能进入商户退款、支付争议或追偿流程。</li><li>责任转移本身有价值，而不是客户只需要一个消费限额控件。</li><li>赔付敞口可通过限额、商户分层、准备金与再担保被管理。</li></ol></div>
+        <div class="truth-card kill"><h3>停止或转向的信号</h3><ul><li>拿不到交易闸门，只能事后评分或观察。</li><li>主要投诉集中在“感觉不满意”等不可裁决问题。</li><li>商户与支付网络不给足够证据，导致无法追偿。</li><li>Coverage 只能靠大量人工、无法形成稳定规则和定价。</li><li>网络/PSP 把同样保障无成本捆绑，Isometry 没有独立控制面或数据优势。</li></ul></div>
+      </div>
+      <div class="proof-step">
+        <div class="proof"><div class="n">1</div><b>选择交易原型</b><p>不选客群渠道；选“高时效、边界清楚、有退款路径”的交易结构。</p></div>
+        <div class="proof"><div class="n">2</div><b>写一份真实证书</b><p>逐条定义 Predicate、事实源、时点、容差、赔法与责任方。</p></div>
+        <div class="proof"><div class="n">3</div><b>跑完整失败链路</b><p>不仅支付成功，还要模拟超额、错商户、盗卡、商户违约和用户后悔。</p></div>
+        <div class="proof"><div class="n">4</div><b>核算风险闭环</b><p>测量自动裁决率、垫付时长、可追偿率、最终损失与人工成本。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ask">
+    <div class="panel final-panel">
+      <div class="final-grid">
+        <div>
+          <div class="section-kicker" style="color:#ff9b75">Decision requested</div>
+          <h2>建议：批准“继续验证方向”，而不是批准一个已经定型的产品</h2>
+          <p>目前最有价值的结论，是把问题从“Agent 怎么付钱”推进到“谁有权让它付、谁敢为边界签字、出错后如何赔和追”。但 Permit、承保深度、风险资本和法律结构仍决定这个方向是否成立。</p>
+          <div class="final-thesis">建议认可的红线：<span>不做 crypto-only 钱包；不把主观预期写进赔付；没有交易否决权和证据就不承保；不重造信用卡欺诈网络。</span></div>
+        </div>
+        <div class="boss-box">
+          <h3>建议的三种决策选项</h3>
+          <div class="boss-choice">
+            <div class="boss-option"><b>A. 方向成立，进入产品验证</b><span>同意责任层定位和四条红线；开放问题保持未决，以一条完整责任链继续设计。</span></div>
+            <div class="boss-option"><b>B. 方向有价值，但需要收窄</b><span>只验证 Enforcement Guarantee，不碰商户履约、Outcome Cover 或大额风险资本。</span></div>
+            <div class="boss-option"><b>C. 不成立</b><span>如果 Isometry 无法取得闸门、承保与追偿能力，则不应把它包装成 Agentic Payment 产品。</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>Isometry Agentic Payment 方向评审稿 · 2026-06-18<br/>不构成法律、保险或卡组织责任意见。</div>
+    <div>本报告刻意不提供竞品矩阵和 GTM；外部资料仅用于证明授权、Token 与消费控制正在基础设施化。</div>
+  </footer>
+</div>
+
+<script>
+const customers = [
+  {
+    icon:'👤', title:'普通消费者', sub:'不想理解钱包，只想安全委托',
+    bad:['需要钱包、私钥、稳定币或环境变量，用户必须先变成 crypto / 技术用户。','支付动作可完成，但用户不清楚 Agent 的边界、撤销、退款与赔付。','Agent 买错后，责任被甩回用户、平台或商户。'],
+    good:['继续使用银行卡或熟悉的支付方式，底层 Rail 对用户透明。','把金额、商户、时间、商品与审批变成明确的受保障条款。','越过受保障边界且系统放行时，按证书先赔再追。'],
+    punch:'我们接住的不是“不会写代码的人”，而是所有<strong>不愿自己管理 Agent 金融风险</strong>的人。'
+  },
+  {
+    icon:'🏢', title:'企业财务 / 采购', sub:'需要控制面、审计与明确责任',
+    bad:['钱包余额和单笔限额无法表达成本中心、Approved vendor、PO、审批与发票。','Finance 无法回答谁授权、为什么放行、月底如何对账、越权谁承担。','把私钥放进 Agent runtime 会放大安全与治理风险。'],
+    good:['把组织政策编译成交易前可执行谓词。','每笔交易附审批链、Quote、规则判断和责任证据。','把“Agent 能花钱”改成“Agent 只能在公司已签发边界内花钱”。'],
+    punch:'企业买的不是钱包，而是让 Finance、Security 和 Compliance <strong>不再阻止 Agent 花钱</strong>。'
+  },
+  {
+    icon:'🏪', title:'商户', sub:'需要可信订单，不是匿名转账',
+    bad:['链上付款只说明钱到了，不能完整说明用户授权了什么。','绕开商户订单、库存、税、退款与客服系统。','出现争议时缺少 Intent、Quote 与 Cart 的统一证据。'],
+    good:['给商户可验证订单、受限付款授权和稳定 Merchant identity。','尊重 Merchant of Record、履约、退款与客户关系。','将 Agent 证据包接入商户退款和支付争议。'],
+    punch:'商户愿意接的不是一个新收款地址，而是<strong>责任清楚、能进入既有商业系统的订单</strong>。'
+  },
+  {
+    icon:'🤖', title:'AI 平台', sub:'不想自己变成支付风险公司',
+    bad:['接上钱包很容易，随后却要承担投诉、欺诈、退款和责任解释。','每个平台各自建立授权、风控和争议运营，成本高且难复用。','普通用户无法被要求管理 Agent 凭证。'],
+    good:['把委托编译、交易闸门、证据、赔付和追偿交给独立责任层。','平台保留体验，Isometry 承担其签字覆盖的风险。','跨商户和 Rail 使用同一责任语义。'],
+    punch:'AI 平台真正外包的是<strong>责任运营</strong>，不是一条支付 API。'
+  },
+  {
+    icon:'🏦', title:'Issuer / PSP', sub:'已有资金风控，但缺 Agent 意图',
+    bad:['传统信号看得到卡、设备、金额、商户，却未必看得到完整 Agent 任务。','合法持卡、合法认证仍可能是 Agent 对委托的越权执行。','新建一套平行支付 Rail 会丢失成熟的退款和争议网络。'],
+    good:['向现有授权流程补充 Agent identity、Permit、审批、Quote 与 Cart hash。','Issuer 保留资金风控否决权，Isometry 增加委托与商业符合性否决权。','用 Evidence Packet 提升退款、争议与追偿效率。'],
+    punch:'Isometry 不替代卡网络；它让现有网络第一次看见<strong>“用户允许 Agent 做什么”</strong>。'
+  }
+];
+
+const decisions = [
+  {
+    id:'permit', q:'Permit 应由谁产生？', desc:'决定 Isometry 是验证器、编译器还是政策制定者，也决定它应承担多大语义责任。',
+    options:[
+      {id:'external', title:'A. 外部 Mandate，Isometry 只验证', detail:'用户、企业或平台自己生成结构化条件；Isometry 只校验和执行。责任较轻，差异化也较弱。'},
+      {id:'compile', title:'B. Isometry 编译自然语言，用户确认', detail:'用户定义经济意图；Isometry 转为机器谓词并展示保障范围。产品体验与责任更强。', hyp:true},
+      {id:'template', title:'C. Isometry 提供标准模板与政策', detail:'Isometry 预先定义可承保交易模板，用户只能在模板内配置；最易承保，但覆盖面窄。'}
+    ], why:'当前工作假设倾向 B：既不替用户决定目标，又让 Isometry 对自己编译和展示的语义负责。'
+  },
+  {
+    id:'coverage', q:'第一层到底承保什么？', desc:'承保边界决定损失敞口、证据需求、是否需要保险合作以及产品能否被理解。',
+    options:[
+      {id:'enforcement', title:'A. 只保 Enforcement Failure', detail:'本应按 Permit 拦截却错误放行：超额、错商户、错商品、过期、缺审批。', hyp:true},
+      {id:'attestation', title:'B. 再保商户 / 数据事实错误', detail:'例如商户声称可退款却拒绝；Isometry 可先赔，再向事实提供方追偿。'},
+      {id:'outcome', title:'C. 进一步保现实结果', detail:'航班延误、酒店取消、商品迟到。接近保险产品，需要独立定价和资本。'}
+    ], why:'当前工作假设倾向 A 起步；B、C 应被视为不同风险产品，而不是模糊地包进“Agent 买错”。'
+  },
+  {
+    id:'gate', q:'Isometry 必须掌握多强的交易控制？', desc:'没有结算前否决权，就只能事后解释，无法对“本该拦住”作可信承诺。',
+    options:[
+      {id:'hard', title:'A. 所有交易都必须 Hard Gate', detail:'所有通过 Isometry 的 Agent 交易均在付款前校验；控制最强，集成最重。'},
+      {id:'advisory', title:'B. 只提供风险评分 / Advisory', detail:'容易接入，但无法真正承保，只能做工具或证据服务。'},
+      {id:'hybrid', title:'C. 只对被承保交易 Hard Gate', detail:'未承保交易可 Advisory；签发 Coverage Certificate 的交易必须经过硬闸。', hyp:true}
+    ], why:'当前工作假设倾向 C：把“有保障”和“只有提醒”明确分开。'
+  },
+  {
+    id:'card', q:'信用卡欺诈风控接到什么深度？', desc:'决定 Isometry 是利用现有金融网络，还是错误地重造一套盗卡与账户风险系统。',
+    options:[
+      {id:'default', title:'A. 仅使用 PSP 默认风控', detail:'最轻，但无法把 Agent identity、Permit 与任务上下文反馈给授权和争议流程。'},
+      {id:'orchestrate', title:'B. Issuer / PSP 主判，Isometry 编排并补充 Agent 信号', detail:'接 Network token、3DS、设备与争议信号；同时传入 Permit、Agent 和 Quote 证据。', hyp:true},
+      {id:'primary', title:'C. Isometry 成为主欺诈决策者', detail:'控制更大，但会重做 Issuer 擅长的风控，监管、数据和资本要求显著上升。'}
+    ], why:'当前工作假设倾向 B：资金欺诈不重造，委托与商业符合性由 Isometry 补齐。'
+  },
+  {
+    id:'merchant', q:'哪些商户 / 交易证据足以获得保障？', desc:'Quote、Merchant identity、Cart hash 和退款接口的质量，决定裁决与追偿是否可靠。',
+    options:[
+      {id:'api', title:'A. 仅 Quote-locked API 商户', detail:'证据最好、范围最窄，适合验证完整责任闭环。'},
+      {id:'browser', title:'B. 允许任意网页自动购买', detail:'覆盖广，但报价、商品和商户身份不稳定，赔付风险最高。'},
+      {id:'tiered', title:'C. 商户分层、保障分层', detail:'API 集成商户完整保障；可验证网页有限保障；证据不足时只确认或不承保。', hyp:true}
+    ], why:'当前工作假设倾向 C；但最早验证可以只用 A，避免一开始被浏览器自动化的噪声淹没。'
+  },
+  {
+    id:'remedy', q:'赔付应该赔多少、赔多快？', desc:'同一错误可以赔超额部分、赔整单、先垫后追或只协助争议，用户价值和损失率差异巨大。',
+    options:[
+      {id:'exact', title:'A. 只赔明确 breach 的经济差额', detail:'如上限 400、实际 430，只赔 30；损失可控，但用户体验未必完整。'},
+      {id:'full', title:'B. 任何受保障 breach 均赔整单', detail:'承诺简单有力，但可能产生道德风险与高损失。'},
+      {id:'tiered', title:'C. 按 breach 类型和商户等级分层', detail:'超额赔差额；错商户可赔全单；商户违约可先垫后追；不同责任不同 Remedy。', hyp:true}
+    ], why:'当前工作假设倾向 C：赔付不应只有一个“赔/不赔”布尔值，而应映射到具体责任与补救。'
+  },
+  {
+    id:'capital', q:'谁提供风险资本？', desc:'Coverage Certificate 一旦成立，就需要真实流动性、准备金和极端损失承受能力。',
+    options:[
+      {id:'own', title:'A. Isometry 自有准备金', detail:'产品控制强、早期可快，但资本效率和风险集中度较差。'},
+      {id:'partner', title:'B. 保险 / 担保合作方承担', detail:'资本更稳健，但产品设计、理赔和监管依赖外部伙伴。'},
+      {id:'hybrid', title:'C. 小额自留 + 大额 / 尾部风险外部承接', detail:'用稳定币准备金做即时小额垫付，再通过担保或保险分散大额风险。', hyp:true}
+    ], why:'当前工作假设倾向 C，但是否能以合同保证而非保险形态落地，需要法律论证。'
+  },
+  {
+    id:'legal', q:'Isometry 以什么法律与商业身份承诺？', desc:'“我们赔”可能是服务 SLA、合同保证、保险、支付机构义务或 Merchant-of-Record 责任，边界完全不同。',
+    options:[
+      {id:'sla', title:'A. 软件服务合同 + 有限 Guarantee', detail:'只赔自身系统未执行明示规则造成的直接损失；最易起步，但保障范围有限。', hyp:true},
+      {id:'insurance', title:'B. 与持牌保险 / 担保方共同承保', detail:'可以扩展 Attestation 或 Outcome，但成本、合规与产品依赖上升。'},
+      {id:'principal', title:'C. 成为 PSP / MoR / 交易 Principal', detail:'能掌握更完整资金与责任链，也承担最高监管、运营和资本负担。'}
+    ], why:'当前工作假设倾向先验证 A 的边界，同时为 B 保留接口；不能在法律结构未清楚前承诺“所有 Agent 错误都赔”。'
+  }
+];
+
+function renderCustomers(index=0){
+  const tabs=document.getElementById('customerTabs');
+  tabs.innerHTML='';
+  customers.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.className='customer-btn'+(i===index?' active':'');
+    b.type='button';
+    b.innerHTML=`<span class="emoji">${c.icon}</span><span><b>${c.title}</b><small>${c.sub}</small></span>`;
+    b.addEventListener('click',()=>renderCustomers(i));
+    tabs.appendChild(b);
+  });
+  const c=customers[index];
+  document.getElementById('customerBad').innerHTML=c.bad.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('customerGood').innerHTML=c.good.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('customerPunch').innerHTML=c.punch;
+}
+
+const storeKey='isometry-direction-decisions-v1';
+function workingHypotheses(){
+  const s={};
+  decisions.forEach(q=>{
+    const h=q.options.find(o=>o.hyp);
+    if(h) s[q.id]=h.id;
+  });
+  return s;
+}
+function loadSelections(){
+  try{const raw=localStorage.getItem(storeKey);return raw?JSON.parse(raw):workingHypotheses()}catch(e){return workingHypotheses()}
+}
+let selections=loadSelections();
+
+function renderDecisions(){
+  const grid=document.getElementById('decisionGrid');
+  grid.innerHTML='';
+  decisions.forEach((q,idx)=>{
+    const card=document.createElement('div');
+    card.className='decision-card';
+    const options=q.options.map(o=>{
+      const selected=selections[q.id]===o.id;
+      return `<label class="option ${selected?'selected':''}"><input type="radio" name="${q.id}" value="${o.id}" ${selected?'checked':''}><span class="option-head"><b>${o.title}</b>${o.hyp?'<span class="hyp">当前工作假设</span>':''}</span><small>${o.detail}</small></label>`;
+    }).join('');
+    card.innerHTML=`<div class="qnum">${String(idx+1).padStart(2,'0')}</div><h3>${q.q}</h3><p>${q.desc}</p><div class="options">${options}</div><div class="why">${q.why}</div>`;
+    card.querySelectorAll('input').forEach(input=>input.addEventListener('change',e=>{
+      selections[q.id]=e.target.value;
+      localStorage.setItem(storeKey,JSON.stringify(selections));
+      renderDecisions();
+    }));
+    grid.appendChild(card);
+  });
+  updateMemo();
+}
+
+function selectedOption(q){return q.options.find(o=>o.id===selections[q.id]);}
+function memoString(){
+  const lines=[];
+  lines.push('Isometry Agentic Payment 方向评审摘要');
+  lines.push('');
+  lines.push('候选定位：跨支付轨道的委托承保层——编译意图、执行边界、签发保障、路由责任。');
+  lines.push('已形成共识：稳定币可在内部用于准备金/垫付/结算，但用户不必使用；现有信用卡欺诈风控必须接入，Issuer/PSP 主判资金风险，Isometry 主判委托与交易符合性。');
+  lines.push('');
+  lines.push('开放问题当前选择：');
+  decisions.forEach((q,i)=>{
+    const o=selectedOption(q);
+    lines.push(`${i+1}. ${q.q} ${o?o.title:'[未选择]'}`);
+    if(o) lines.push(`   ${o.detail}`);
+  });
+  lines.push('');
+  lines.push('产品红线：不做 crypto-only 钱包；不把主观预期写进赔付；没有结算前否决权和证据就不承保；不重造信用卡欺诈网络。');
+  lines.push('建议决策：A 方向成立进入验证 / B 方向成立但只收窄到 Enforcement Guarantee / C 若无法取得闸门、承保和追偿能力则停止。');
+  return lines.join('\n');
+}
+function updateMemo(){
+  const count=decisions.filter(q=>selections[q.id]).length;
+  document.getElementById('progressText').textContent=`已记录 ${count} / ${decisions.length} 项选择`;
+  document.getElementById('progressFill').style.width=`${count/decisions.length*100}%`;
+  document.getElementById('memoText').value=memoString();
+}
+async function copyMemo(){
+  const text=memoString();
+  try{await navigator.clipboard.writeText(text);document.getElementById('copyState').textContent='已复制到剪贴板';}
+  catch(e){const ta=document.getElementById('memoText');ta.focus();ta.select();document.execCommand('copy');document.getElementById('copyState').textContent='已选择文本，请复制';}
+  setTimeout(()=>{document.getElementById('copyState').textContent=''},2200);
+}
+
+renderCustomers();
+renderDecisions();
+
+document.getElementById('resetDecisions').addEventListener('click',()=>{selections=workingHypotheses();localStorage.setItem(storeKey,JSON.stringify(selections));renderDecisions();});
+document.getElementById('clearDecisions').addEventListener('click',()=>{selections={};localStorage.removeItem(storeKey);renderDecisions();});
+document.getElementById('copyMemo').addEventListener('click',copyMemo);
+document.getElementById('copyMemoTop').addEventListener('click',copyMemo);
+document.getElementById('printBtn').addEventListener('click',()=>window.print());
+document.getElementById('jumpOpen').addEventListener('click',()=>document.getElementById('open').scrollIntoView({behavior:'smooth'}));
+document.getElementById('modeBtn').addEventListener('click',e=>{
+  document.body.classList.toggle('compact');
+  const compact=document.body.classList.contains('compact');
+  e.target.textContent=compact?'返回完整视图':'摘要视图';
+  e.target.classList.toggle('active',compact);
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
