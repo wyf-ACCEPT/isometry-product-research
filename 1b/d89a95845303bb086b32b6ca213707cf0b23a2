@@ -1,0 +1,33 @@
+README.md
+  s_b37c7964f40a9f::t_969ea0b9c8f148 27-28
+  s_b37c7964f40a9f::t_b19613c22716dd 11
+site/index.html
+  s_b37c7964f40a9f::t_53738eb5986ba6 1-124
+site/pland-stripe.html
+  s_b37c7964f40a9f::t_2c611d69e9acc8 170-176
+  s_b37c7964f40a9f::t_cbfcb67a2f8e16 247-248
+  s_b37c7964f40a9f::t_5df495a5244046 166
+  s_b37c7964f40a9f::t_a3f53fe3979a8e 281
+  s_b37c7964f40a9f::t_b94600e1ea9089 382
+  s_b37c7964f40a9f::t_d3694589e2f808 521-543
+  s_b37c7964f40a9f::t_b6be7b336ed1c6 621
+  s_b37c7964f40a9f::t_f32366b26e24f6 213
+  s_b37c7964f40a9f::t_4d861841856383 243
+  s_b37c7964f40a9f::t_d63d97092d8309 271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "1bd89a95845303bb086b32b6ca213707cf0b23a2",
+  "prompts": {},
+  "sessions": {
+    "s_b37c7964f40a9f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "217f6bca-f741-43c5-915b-348dbdf78a46",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
