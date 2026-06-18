@@ -1,0 +1,25 @@
+site/pland-stripe.html
+  s_3c36663240c7c0::t_d70fc72bbd243c 172
+  s_3c36663240c7c0::t_30769ad450ec49 178
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "8f6a08703642f5fcfc7ec766605bace7f684e540",
+  "prompts": {},
+  "humans": {
+    "h_7140a1ee2047ef": {
+      "author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
