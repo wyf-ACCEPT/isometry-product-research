@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Isometry｜Agentic Payment 研究 · 三个赌注</title>
+<style>
+  :root{
+    --bg:#f7f3eb;--paper:#fffaf2;--ink:#171411;--muted:#6c6257;--line:#d8cdbd;--line2:#bcae9c;
+    --accent:#f06b3a;--accent2:#2d6cdf;--good:#177c55;--bad:#b94832;
+    --shadow:0 22px 60px rgba(30,22,12,.12);--radius:24px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--ink);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(240,107,58,.12), transparent 25%),
+      radial-gradient(circle at 88% 18%, rgba(45,108,223,.10), transparent 28%),
+      linear-gradient(180deg, #fbf7ef 0%, var(--bg) 52%, #f3ebdd 100%);
+    font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  .page{max-width:1120px;margin:0 auto;padding:34px 22px 64px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800}
+  .brand-mark{width:36px;height:36px;border:2px solid var(--ink);border-radius:10px;display:grid;place-items:center;background:#fff;box-shadow:4px 4px 0 #171411;transform:rotate(-3deg);font-weight:1000}
+  .tag{font-size:12px;border-radius:999px;border:1px solid var(--line2);padding:7px 12px;background:#fff;color:#4b4238;font-weight:800}
+  .tag.hot{background:#171411;color:#fff;border-color:#171411}
+
+  .hero{margin-top:22px}
+  .hero-card{background:rgba(255,250,242,.9);border:1px solid rgba(188,174,156,.75);border-radius:var(--radius);box-shadow:var(--shadow);padding:36px 36px 30px;position:relative;overflow:hidden}
+  .hero-card:before{content:"";position:absolute;inset:-90px -120px auto auto;width:320px;height:320px;border-radius:50%;background:rgba(240,107,58,.11);filter:blur(3px)}
+  .kicker{font-size:13px;color:var(--accent);font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+  h1{font-size:56px;line-height:1.02;margin:0 0 16px;letter-spacing:-.06em}
+  h1 .stroke{color:#fff;text-shadow:1px 0 var(--ink),-1px 0 var(--ink),0 1px var(--ink),0 -1px var(--ink),2px 2px 0 var(--ink)}
+  .subtitle{font-size:19px;line-height:1.55;color:#3b352f;margin:0 0 20px;max-width:820px}
+  .punchline{border:2px solid var(--ink);border-radius:20px;background:#fff;padding:16px 18px;box-shadow:8px 8px 0 #171411;font-size:20px;line-height:1.4;font-weight:900;max-width:760px}
+  .punchline span{color:var(--accent)}
+  .definition-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .def{padding:14px;border:1px solid var(--line);border-radius:18px;background:#fffaf6}
+  .def b{display:block;font-size:14px;margin-bottom:6px}
+  .def p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+  .note{margin:16px 0 0;font-size:14px;color:#3b352f;line-height:1.55;max-width:820px}
+  .note b{color:var(--ink)}
+
+  .section{margin-top:28px}
+  .section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:0 0 14px}
+  .section-title h2{font-size:28px;letter-spacing:-.04em;margin:0}
+  .section-title p{color:var(--muted);margin:0;max-width:420px;line-height:1.5;font-size:14px;text-align:right}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .entry{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1px solid rgba(188,174,156,.75);border-radius:24px;background:rgba(255,250,242,.92);box-shadow:0 14px 34px rgba(35,25,12,.07);padding:22px;transition:.18s ease;min-height:236px}
+  .entry:hover{transform:translateY(-3px);border:2px solid var(--ink);box-shadow:6px 6px 0 #171411}
+  .entry-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .entry .emoji{font-size:24px;width:46px;height:46px;display:grid;place-items:center;border:1.5px solid var(--line2);border-radius:12px;background:#fff;flex:none}
+  .entry .who{font-weight:900;font-size:15px;display:flex;flex-direction:column;line-height:1.2}
+  .entry .who small{font-weight:800;font-size:12px;color:var(--accent);margin-top:3px;letter-spacing:.02em}
+  .entry h3{margin:0 0 8px;font-size:20px;letter-spacing:-.03em}
+  .entry p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.55;flex:1}
+  .entry .go{margin-top:14px;font-weight:900;font-size:14px}
+  .entry:hover .go{color:var(--accent)}
+
+  .footer-note{margin-top:28px;border-radius:24px;background:#171411;color:#fff;padding:22px 24px;text-align:center;font-size:20px;font-weight:1000;letter-spacing:-.02em;box-shadow:var(--shadow);line-height:1.4}
+  .footer-note span{color:#ffb18d}
+
+  @media(max-width:860px){
+    h1{font-size:40px}.cards{grid-template-columns:1fr}.definition-grid{grid-template-columns:1fr}
+    .section-title{display:block}.section-title p{text-align:left;margin-top:8px}.topbar{display:block}.tag{display:inline-block;margin-top:12px}
+  }
+  @media(max-width:560px){.page{padding:24px 14px 44px}.hero-card{padding:26px 22px}h1{font-size:34px}.subtitle{font-size:17px}.punchline{font-size:18px}}
+</style>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar">
+      <div class="brand"><div class="brand-mark">⌂</div><div>Isometry · Agentic Payment 研究</div></div>
+      <span class="tag hot">Product bet, not a market map</span>
+    </div>
+
+    <section class="hero">
+      <div class="hero-card">
+        <div class="kicker">三个人 · 三个方向 · 三个赌注</div>
+        <h1>Agentic Payment<br><span class="stroke">我们在赌什么</span></h1>
+        <p class="subtitle">agent 开始自己花钱了。我们不去画一张竞品地图——而是各自下一个赌注、杀死一个默认假设，看杀完之后还站着什么。那个还站着的东西，就是产品的方向。</p>
+        <div class="punchline">真正的护城河在 <span>那块你本能想外包的脏活里</span>，不在那根更快的管子里。</div>
+        <div class="definition-grid">
+          <div class="def"><b>🕳️ 我们拒绝 tech 陷阱</b><p>滑向"能扣卡的七行代码"——管子谁都能写，不稀缺、不值钱。</p></div>
+          <div class="def"><b>🕳️ 我们拒绝 GTM 陷阱</b><p>还没想清"造什么"，就跳到"先打谁、怎么推"。顺序反了。</p></div>
+        </div>
+        <p class="note">我们要交的是 product insight：<b>那个被忽视的真问题 + 对的产品形态</b>——而不是又一根管子，或一份推广计划。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>三个方向，点进去看</h2>
+        <p>每页是一个被论证过的立场，不是信息罗列。</p>
+      </div>
+      <div class="cards">
+        <a class="entry" href="pland-stripe.html">
+          <div class="entry-top"><span class="emoji">🧱</span><span class="who">PlanD<small>透镜 / 框架</small></span></div>
+          <h3>Stripe 的三块脏活</h3>
+          <p>复盘 Stripe 母题：护城河长在脏活里、不在管子里。为另外两条线提供分析脊柱。</p>
+          <span class="go">打开页面 →</span>
+        </a>
+        <a class="entry" href="sipeng-permit.html">
+          <div class="entry-top"><span class="emoji">🧾</span><span class="who">思芃<small>反方 · 买家</small></span></div>
+          <h3>给 agent 一张消费许可证</h3>
+          <p>真买家不是开发者 / crypto 圈。产品是替他吞下"agent 花钱的授权、证据与责任"。</p>
+          <span class="go">打开页面 →</span>
+        </a>
+        <a class="entry" href="yingmiao-no-stablecoin.html">
+          <div class="entry-top"><span class="emoji">⚔️</span><span class="who">应淼<small>反方 · rail</small></span></div>
+          <h3>赢家不需要稳定币</h3>
+          <p>用尽全力证明稳定币不是必需——杀不死，我们才挣到"必须用稳定币"的信念。</p>
+          <span class="go">打开页面 →</span>
+        </a>
+      </div>
+    </section>
+
+    <div class="footer-note">杀死两个最危险的默认假设——<span>"一定要稳定币" 和 "买家是开发者"</span>——用 Stripe 母题当刀。还站着的那个，就是答案。</div>
+  </main>
+</body>
+</html>
