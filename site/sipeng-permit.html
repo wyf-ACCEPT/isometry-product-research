@@ -185,6 +185,14 @@
   .source-note{margin-top:13px;border-radius:14px;background:var(--paper-2);border:1px dashed var(--line-dark);padding:10px 12px;font-size:10px;line-height:1.45;color:var(--muted)}
   .source-note a{text-decoration:underline;text-underline-offset:2px}
 
+
+  .external-scan{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;margin-top:13px;border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);border-radius:17px;background:#fff;padding:13px 15px;text-decoration:none;transition:.16s ease}
+  .external-scan:hover{transform:translateY(-1px)}
+  .external-scan .mark{width:43px;height:43px;border-radius:12px;display:grid;place-items:center;background:var(--ink);color:#fff;font-weight:950;font-size:14px}
+  .external-scan b{display:block;font-size:13px;margin-bottom:3px}
+  .external-scan span{display:block;color:var(--muted);font-size:10px;line-height:1.45}
+  .external-scan .go{font-size:18px;font-weight:950;color:var(--orange)}
+
   /* Permit & clauses */
   .object-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:16px}
   .object-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:15px;min-height:190px}
@@ -353,6 +361,16 @@
     .decision-grid{grid-template-columns:1fr 1fr}
     @page{size:A4;margin:12mm}
   }
+
+  .competitor-shell{padding:14px;background:linear-gradient(180deg,#fffdf8,#f8f4eb);overflow:hidden}
+  .competitor-context{display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center;margin-bottom:12px;border:1px dashed var(--line-dark);border-radius:15px;padding:12px 14px;background:#fff}
+  .competitor-context b{display:block;font-size:13px;margin-bottom:4px}
+  .competitor-context p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}
+  .competitor-context .signal{white-space:nowrap;border-radius:999px;padding:7px 10px;background:var(--orange-soft);border:1px solid #efc0ae;color:var(--red);font-size:10px;font-weight:950}
+  .scan-frame{display:block;width:100%;min-height:2200px;border:0;border-radius:18px;background:transparent;overflow:hidden}
+  .external-scan{width:100%;font:inherit;color:inherit;text-align:left;cursor:pointer}
+  @media(max-width:760px){.competitor-context{grid-template-columns:1fr}.competitor-context .signal{justify-self:start}.competitor-shell{padding:7px}.scan-frame{min-height:3000px}}
+  @media print{.scan-frame{width:100%!important}.competitor-shell{padding:0}}
 </style>
 </head>
 <body>
@@ -360,11 +378,12 @@
   <header class="topbar">
     <div class="brand">
       <div class="logo">I</div>
-      <div>Isometry × Agentic Payment<small>Direction review · 2026-06-18</small></div>
+      <div>Isometry × Agentic Payment<small>Direction review · 2026-06-19</small></div>
     </div>
     <div class="actions">
       <button class="btn" id="modeBtn" type="button">摘要视图</button>
       <button class="btn" id="jumpOpen" type="button">只看开放问题</button>
+      <a class="btn" href="#competitor-scan">责任层缺口扫描</a>
       <button class="btn" id="printBtn" type="button">打印 / 导出 PDF</button>
       <button class="btn primary" id="copyMemoTop" type="button">复制决策摘要</button>
     </div>
@@ -374,6 +393,7 @@
     <span class="status done">已形成共识：方向与稳定币原则</span>
     <span class="status open">未拍板：Permit、承保、赔付与法律结构</span>
     <span class="status scope">本报告不讨论 GTM</span>
+    <span class="status scope">外部扫描：未见公开通用 Agent 越权赔付产品</span>
   </div>
 
   <section class="hero">
@@ -528,7 +548,8 @@
           </ul>
         </div>
       </div>
-      <div class="source-note">外部事实参考（官方来源）：<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noreferrer">Google AP2 / Mandates</a>；<a href="https://docs.stripe.com/agentic-commerce/concepts/shared-payment-tokens" target="_blank" rel="noreferrer">Stripe Shared Payment Tokens</a>；<a href="https://www.visa.com/en-us/solutions/intelligent-commerce" target="_blank" rel="noreferrer">Visa Intelligent Commerce</a>。这些来源说明“授权与控制”正在成为基础设施；本报告据此把产品赌注推向承保与 Remedy，而非竞品对比。</div>
+      <div class="source-note">外部事实参考（官方来源）：<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noreferrer">Google AP2 / Mandates</a>；<a href="https://docs.stripe.com/agentic-commerce/concepts/shared-payment-tokens" target="_blank" rel="noreferrer">Stripe Shared Payment Tokens</a>；<a href="https://www.visa.com/en-us/solutions/intelligent-commerce" target="_blank" rel="noreferrer">Visa Intelligent Commerce</a>。这些来源说明“授权与控制”正在成为基础设施；本报告据此把产品赌注推向承保与 Remedy，而非功能罗列。</div>
+      <a class="external-scan" href="#competitor-scan"><div class="mark">SCAN</div><div><b>另附：Canton、Tempo 等方案的责任层缺口扫描</b><span>结论不是“他们什么都没有”：Canton 可承载权利义务与证据；Tempo、Anyway、Stripe 和卡网络已有不同程度的控制、Trace 与争议能力。真正要判断的是谁公开签字承保、谁先赔、谁承担追偿失败。</span></div><div class="go">→</div></a>
     </div>
   </section>
 
@@ -624,6 +645,228 @@
     </div>
   </section>
 
+
+  <section class="section detail-section" id="competitor-scan">
+    <div class="section-head">
+      <div><div class="section-kicker">Responsibility-layer gap scan</div><h2>外部方案做到哪一层，责任缺口还剩在哪里</h2></div>
+      <p>不是功能数量排名，也不是传统竞品矩阵；只看谁定义条件、谁能在付款前否决、谁留存裁决证据、谁先赔以及谁承担追偿失败。</p>
+    </div>
+    <div class="panel competitor-shell">
+      <div class="competitor-context">
+        <div><b>内嵌扫描的用途</b><p>Canton、Tempo、x402、Anyway、AP2、Stripe、Visa 与 Mastercard 可分别成为底座、Rail、协议、合作方或上行竞争者。需要验证的不是“他们有没有 Permit”，而是有没有把 Hard Gate、Coverage、Make-whole 与 Recovery 组合成责任转移产品。</p></div>
+        <div class="signal">当前公开缺口：通用 Agent 越权先赔承诺</div>
+      </div>
+      <iframe id="competitorFrame" class="scan-frame" title="Isometry Agentic Payment 责任层缺口扫描" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Isometry Agentic Payment 责任层缺口扫描：Canton、Tempo、x402、Anyway、AP2、Stripe、Visa 与 Mastercard 做到了哪一层。&quot; /&gt;
+&lt;title&gt;Isometry｜Agentic Payment 责任层缺口扫描&lt;/title&gt;
+&lt;style&gt;
+:root{
+  --bg:#f3f0e9;--paper:#fffdf8;--paper2:#faf7f0;--ink:#151514;--ink2:#35322e;--muted:#706b63;
+  --line:#d9d2c6;--line2:#aaa094;--orange:#f0643d;--orangeSoft:#fff0e9;--green:#167554;
+  --greenSoft:#eaf7f1;--blue:#265fcb;--blueSoft:#edf3ff;--gold:#8d6213;--goldSoft:#fff6de;
+  --red:#a83f31;--redSoft:#fff0ed;--purple:#6948c7;--purpleSoft:#f2edff;
+  --shadow:0 22px 60px rgba(24,20,14,.10);--shadowSm:0 9px 26px rgba(24,20,14,.07);--radius:24px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:&quot;PingFang SC&quot;,&quot;Noto Sans CJK SC&quot;,&quot;Microsoft YaHei&quot;,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;background:radial-gradient(circle at 8% 5%,rgba(240,100,61,.12),transparent 25%),radial-gradient(circle at 92% 4%,rgba(38,95,203,.10),transparent 27%),linear-gradient(180deg,#fbf9f4 0%,var(--bg) 58%,#ebe5da 100%)}
+a{color:inherit}.shell{max-width:1360px;margin:auto;padding:20px 22px 70px}.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0 15px;background:linear-gradient(180deg,rgba(251,249,244,.98),rgba(251,249,244,.84),transparent);backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:950;letter-spacing:-.025em}.logo{width:40px;height:40px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:12px;background:#fff;box-shadow:4px 4px 0 var(--ink);font-size:18px;transform:rotate(-2deg)}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:2px}.actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.btn{display:inline-flex;align-items:center;text-decoration:none;border:1px solid var(--line2);background:rgba(255,253,248,.92);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:850;cursor:pointer;transition:.16s}.btn:hover{transform:translateY(-1px);border-color:var(--ink);box-shadow:var(--shadowSm)}.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.card,.panel{background:rgba(255,253,248,.94);border:1px solid rgba(170,160,148,.66);border-radius:var(--radius);box-shadow:var(--shadow)}.hero{display:grid;grid-template-columns:1.28fr .72fr;gap:18px}.heroMain{padding:38px;position:relative;overflow:hidden;min-height:450px}.heroMain:before{content:&quot;&quot;;position:absolute;width:400px;height:400px;border-radius:50%;right:-140px;top:-160px;background:rgba(240,100,61,.11)}.eyebrow{font-size:11px;color:var(--orange);font-weight:950;letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px;position:relative}.hero h1{margin:0 0 18px;font-size:52px;line-height:1.04;letter-spacing:-.06em;position:relative}.hero h1 span{color:var(--orange)}.lead{font-size:19px;line-height:1.58;color:var(--ink2);margin:0 0 22px;position:relative;max-width:900px}.thesis{border:2px solid var(--ink);border-radius:18px;background:#fff;box-shadow:7px 7px 0 var(--ink);padding:17px 18px;font-size:19px;line-height:1.5;font-weight:950;position:relative}.thesis strong{color:var(--orange)}.meta{margin-top:20px;color:var(--muted);font-size:11px;line-height:1.55;position:relative}.heroSide{display:grid;gap:12px}.side{padding:20px;border-radius:var(--radius);background:rgba(255,253,248,.94);border:1px solid var(--line);box-shadow:var(--shadowSm)}.side h3{margin:0 0 8px;font-size:18px}.side p{margin:0;color:var(--muted);font-size:13px;line-height:1.58}.formula{margin-top:12px;border:1px dashed var(--line2);border-radius:15px;padding:12px;background:#fff;font-size:13px;line-height:1.55;font-weight:900}.formula strong{color:var(--orange)}
+.section{margin-top:27px;scroll-margin-top:72px}.sectionHead{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:13px}.sectionHead h2{margin:0;font-size:31px;line-height:1.12;letter-spacing:-.045em}.sectionHead p{margin:0;max-width:650px;text-align:right;color:var(--muted);font-size:13px;line-height:1.5}.kicker{font-size:10px;color:var(--orange);font-weight:950;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}.panel{padding:25px}.callout{border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);border-radius:18px;background:#fff;padding:15px 16px;font-size:16px;line-height:1.55;font-weight:950}.callout em{font-style:normal;color:var(--orange)}
+.testGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.test{border:1px solid var(--line);border-radius:18px;background:#fff;padding:15px;min-height:180px}.test .n{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:12px;font-weight:950;margin-bottom:10px}.test b{display:block;font-size:14px;margin-bottom:7px}.test p{margin:0;color:var(--muted);font-size:11px;line-height:1.48}.test.risk{background:var(--greenSoft);border-color:#b7ddce}.test.risk .n{background:var(--green)}.testNote{margin-top:13px;padding:12px 14px;border:1px dashed var(--line2);border-radius:14px;background:var(--paper2);color:var(--muted);font-size:11px;line-height:1.5}
+.stack{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.stackCol{border:1px solid var(--line);border-radius:18px;background:#fff;padding:14px;min-height:270px}.stackCol h3{margin:0 0 8px;font-size:15px}.stackCol p{margin:0 0 12px;color:var(--muted);font-size:10px;line-height:1.45}.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1px solid var(--line);background:var(--paper2);border-radius:999px;padding:6px 8px;font-size:9px;font-weight:900}.stackCol:nth-child(1){background:var(--blueSoft);border-color:#c4d2f2}.stackCol:nth-child(2){background:var(--purpleSoft);border-color:#d4c9f4}.stackCol:nth-child(3){background:var(--goldSoft);border-color:#e6d09a}.stackCol:nth-child(4){background:var(--orangeSoft);border-color:#f0c4b4}.stackCol:nth-child(5){background:var(--greenSoft);border-color:#b7ddce}.empty{margin-top:13px;background:var(--ink);color:#fff;border-radius:16px;padding:14px 16px;text-align:center;font-size:15px;font-weight:950}.empty span{color:#ffad88}
+.deepGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.deep{border:1px solid var(--line);border-radius:22px;background:#fff;padding:20px;position:relative;overflow:hidden}.deep:before{content:&quot;&quot;;position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-85px;background:rgba(38,95,203,.08)}.deep.tempo:before{background:rgba(240,100,61,.09)}.deepTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;position:relative}.deep h3{margin:0;font-size:25px;letter-spacing:-.035em}.tag{display:inline-block;border-radius:999px;padding:6px 9px;font-size:9px;font-weight:950;border:1px solid var(--line);background:var(--paper2)}.tag.substrate{background:var(--blueSoft);border-color:#c4d2f2;color:#254b8c}.tag.no{background:var(--redSoft);border-color:#edc5bb;color:#87382e}.verdict{margin:14px 0;border:2px solid var(--ink);border-radius:15px;padding:12px 13px;background:#fff;box-shadow:4px 4px 0 var(--ink);font-size:14px;line-height:1.45;font-weight:950;position:relative}.verdict strong{color:var(--orange)}.split{display:grid;grid-template-columns:1fr 1fr;gap:9px;position:relative}.box{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff}.box.good{background:var(--greenSoft);border-color:#b7ddce}.box.gap{background:var(--redSoft);border-color:#edc5bb}.box h4{margin:0 0 7px;font-size:12px}.box ul{margin:0;padding-left:16px;font-size:10px;line-height:1.48;color:var(--ink2)}.box li{margin:4px 0}.nuance{margin-top:10px;border:1px dashed var(--line2);border-radius:14px;padding:11px;background:var(--paper2);font-size:10px;line-height:1.48;color:var(--muted);position:relative}.nuance strong{color:var(--ink)}.implication{margin-top:10px;border-radius:14px;background:var(--ink);color:#fff;padding:12px;font-size:11px;line-height:1.5;font-weight:850;position:relative}.implication strong{color:#ffad88}
+.scanShell{display:grid;grid-template-columns:290px 1fr;gap:15px}.tabs{display:grid;gap:8px;align-content:start}.tab{width:100%;text-align:left;border:1px solid var(--line);border-radius:15px;background:#fff;padding:11px;cursor:pointer;display:grid;grid-template-columns:36px 1fr;gap:9px;align-items:center;transition:.16s}.tab:hover{transform:translateY(-1px);box-shadow:var(--shadowSm)}.tab.active{border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);background:#fffefb}.tab .icon{font-size:21px;text-align:center}.tab b{display:block;font-size:12px;margin-bottom:2px}.tab small{display:block;color:var(--muted);font-size:9px;line-height:1.3}.detail{border:1px solid var(--line);border-radius:22px;background:#fff;padding:20px;min-height:475px}.detailHead{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;border-bottom:1px solid var(--line);padding-bottom:14px}.detailHead h3{margin:0 0 5px;font-size:24px}.detailHead p{margin:0;color:var(--muted);font-size:11px;line-height:1.45}.verdictPill{border-radius:999px;padding:7px 10px;font-size:10px;font-weight:950;white-space:nowrap}.v-no{background:var(--redSoft);border:1px solid #edc5bb;color:#87382e}.v-partial{background:var(--goldSoft);border:1px solid #e6d09a;color:#76510f}.v-substrate{background:var(--blueSoft);border:1px solid #c4d2f2;color:#254b8c}.detailGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.fact{border:1px solid var(--line);border-radius:15px;padding:13px;background:#fff}.fact h4{margin:0 0 7px;font-size:12px}.fact ul{margin:0;padding-left:17px;color:var(--ink2);font-size:10px;line-height:1.5}.fact li{margin:4px 0}.fact.owns{background:var(--greenSoft);border-color:#b7ddce}.fact.leaves{background:var(--redSoft);border-color:#edc5bb}.take{grid-column:1/-1;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);border-radius:16px;padding:13px;background:#fff;font-size:12px;line-height:1.5;font-weight:900}.take strong{color:var(--orange)}.sources{grid-column:1/-1;border:1px dashed var(--line2);border-radius:14px;padding:11px;background:var(--paper2)}.sources b{display:block;font-size:10px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.sourceLinks{display:flex;flex-wrap:wrap;gap:6px}.sourceLinks a{font-size:9px;font-weight:850;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 8px;text-decoration:none}.sourceLinks a:hover{border-color:var(--ink)}
+.threatGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.threat{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px}.threat h3{margin:0 0 8px;font-size:16px}.threat p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.threat.high{background:var(--redSoft);border-color:#edc5bb}.threat.med{background:var(--goldSoft);border-color:#e6d09a}.threat.partner{background:var(--blueSoft);border-color:#c4d2f2}.falsify{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.fCard{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px}.fCard h3{margin:0 0 8px;font-size:16px}.fCard ul{margin:0;padding-left:18px;font-size:11px;line-height:1.52}.fCard li{margin:5px 0}.fCard.stop{background:var(--redSoft);border-color:#edc5bb}.fCard.win{background:var(--greenSoft);border-color:#b7ddce}
+.sourceList{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sourceItem{border:1px solid var(--line);border-radius:14px;background:#fff;padding:11px}.sourceItem b{display:block;font-size:11px;margin-bottom:4px}.sourceItem a{font-size:9px;color:var(--blue);word-break:break-all}.sourceItem p{margin:5px 0 0;color:var(--muted);font-size:9px;line-height:1.4}.footer{display:flex;justify-content:space-between;gap:20px;margin-top:24px;padding:15px 4px 0;border-top:1px solid var(--line);color:var(--muted);font-size:10px;line-height:1.5}
+@media(max-width:980px){.hero,.deepGrid{grid-template-columns:1fr}.heroSide{grid-template-columns:1fr 1fr}.testGrid,.stack{grid-template-columns:1fr 1fr}.scanShell{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(2,1fr)}.threatGrid{grid-template-columns:1fr}.sourceList{grid-template-columns:1fr}.sectionHead{align-items:flex-start;flex-direction:column}.sectionHead p{text-align:left}.hero h1{font-size:42px}}
+@media(max-width:640px){.shell{padding:12px 12px 48px}.topbar{align-items:flex-start}.actions{max-width:54%}.brand&gt;div:last-child{font-size:12px}.heroMain{padding:25px 22px;min-height:auto}.hero h1{font-size:35px}.lead{font-size:16px}.heroSide{grid-template-columns:1fr}.testGrid,.stack,.split,.detailGrid,.falsify{grid-template-columns:1fr}.tabs{grid-template-columns:1fr}.panel{padding:17px}.sectionHead h2{font-size:27px}.footer{flex-direction:column}.sourceLinks{display:grid}.sourceLinks a{border-radius:10px}}
+@media print{body{background:#fff}.topbar{display:none}.shell{max-width:none;padding:0}.card,.panel,.side{box-shadow:none;break-inside:avoid}.section{break-inside:avoid;margin-top:18px}.detail{min-height:auto}@page{size:A4;margin:12mm}}
+&lt;/style&gt;
+
+&lt;style id=&quot;embedded-scan-overrides&quot;&gt;
+  body{background:transparent!important;overflow-x:hidden}
+  .shell{max-width:none!important;padding:2px 2px 28px!important}
+  .topbar{display:none!important}
+  .section:first-of-type{margin-top:0}
+  .footer{margin-bottom:0}
+  @media print{.shell{padding:0!important}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;shell&quot;&gt;
+&lt;header class=&quot;topbar&quot;&gt;
+  &lt;div class=&quot;brand&quot;&gt;&lt;div class=&quot;logo&quot;&gt;I&lt;/div&gt;&lt;div&gt;Isometry × Agentic Payment&lt;small&gt;Responsibility gap scan · 2026-06-19&lt;/small&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;actions&quot;&gt;
+    &lt;a class=&quot;btn&quot; href=&quot;isometry_agentic_payment_direction_review_final_v3.html&quot;&gt;返回方向评审&lt;/a&gt;
+    &lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;jumpTempo&quot;&gt;Canton / Tempo&lt;/button&gt;
+    &lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;printBtn&quot;&gt;打印 / 导出 PDF&lt;/button&gt;
+    &lt;button class=&quot;btn primary&quot; type=&quot;button&quot; id=&quot;copyBtn&quot;&gt;复制核心结论&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+
+&lt;section class=&quot;hero&quot;&gt;
+  &lt;div class=&quot;card heroMain&quot;&gt;
+    &lt;div class=&quot;eyebrow&quot;&gt;外部责任层缺口扫描&lt;/div&gt;
+    &lt;h1&gt;谁在搬钱，谁在控制，&lt;span&gt;谁真的赔？&lt;/span&gt;&lt;/h1&gt;
+    &lt;p class=&quot;lead&quot;&gt;Canton、Tempo、x402、Anyway、AP2、Stripe、Visa 与 Mastercard 已覆盖 Rail、权限和证据的不同部分；但“通过我的闸门却违反受保障委托时，我先赔并承担或追偿”仍不是公开的通用产品承诺。&lt;/p&gt;
+    &lt;div class=&quot;thesis&quot;&gt;初步判断：&lt;strong&gt;Canton 与 Tempo 不是现成的责任层&lt;/strong&gt;。Canton 更像可承载权利义务与证据的底座；Tempo 更像 Agent-friendly 的稳定币支付 Rail，而且其公开条款明确把多数 Agent 自动交易风险留给用户。&lt;/div&gt;
+    &lt;div class=&quot;meta&quot;&gt;口径：截至 2026-06-19，仅依据公开官方材料。对“没有公开承诺”的判断不等于对未公开合同、试点或未来路线图作断言。&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;heroSide&quot;&gt;
+    &lt;div class=&quot;side&quot;&gt;&lt;h3&gt;本页不做什么&lt;/h3&gt;&lt;p&gt;不做功能数量排名，也不把协议、区块链、钱包和卡网络强行放进同一个竞品框。这里只问一个问题：它是否把 Agent 越权风险变成自己承担的产品责任？&lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&quot;side&quot;&gt;&lt;h3&gt;责任层的最低门槛&lt;/h3&gt;&lt;div class=&quot;formula&quot;&gt;定义受保障条款 + 拥有结算前硬闸门 + 冻结可裁决证据 + 明确 Remedy + &lt;strong&gt;承担风险资本&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class=&quot;section&quot; id=&quot;test&quot;&gt;
+  &lt;div class=&quot;sectionHead&quot;&gt;&lt;div&gt;&lt;div class=&quot;kicker&quot;&gt;Responsibility test&lt;/div&gt;&lt;h2&gt;什么才算“有责任层”&lt;/h2&gt;&lt;/div&gt;&lt;p&gt;限制、Token、Mandate、Trace 或争议工具都可能是必要零件；但没有赔付承诺和风险资本，就仍然是控制层或证据层。&lt;/p&gt;&lt;/div&gt;
+  &lt;div class=&quot;panel&quot;&gt;
+    &lt;div class=&quot;testGrid&quot;&gt;
+      &lt;div class=&quot;test&quot;&gt;&lt;div class=&quot;n&quot;&gt;1&lt;/div&gt;&lt;b&gt;Definition&lt;/b&gt;&lt;p&gt;谁把自然语言或组织政策编译成可裁决条款？谁决定哪些条款可被保障？&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;test&quot;&gt;&lt;div class=&quot;n&quot;&gt;2&lt;/div&gt;&lt;b&gt;Hard Gate&lt;/b&gt;&lt;p&gt;提供方能否在结算前阻断不符合条件的交易，而不只是给一个风险分？&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;test&quot;&gt;&lt;div class=&quot;n&quot;&gt;3&lt;/div&gt;&lt;b&gt;Evidence&lt;/b&gt;&lt;p&gt;是否冻结 Mandate、Agent 身份、Quote、Cart、审批与最终 Capture，足以机械裁决？&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;test&quot;&gt;&lt;div class=&quot;n&quot;&gt;4&lt;/div&gt;&lt;b&gt;Remedy&lt;/b&gt;&lt;p&gt;受保障条款被突破后，是自动退款、垫赔、争议路由还是仅提供日志？&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;test risk&quot;&gt;&lt;div class=&quot;n&quot;&gt;5&lt;/div&gt;&lt;b&gt;Risk Transfer&lt;/b&gt;&lt;p&gt;谁先把用户恢复原状，谁最终吸收损失或承担追偿失败？这一步才把工具变成责任产品。&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;testNote&quot;&gt;&lt;strong&gt;本扫描的严格口径：&lt;/strong&gt;只有同时拥有受保障规则、结算前闸门和明确 Make-whole / 赔付承诺，才称为“责任层”。拥有控制和证据但把损失留给用户，不算。&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class=&quot;section&quot; id=&quot;stack&quot;&gt;
+  &lt;div class=&quot;sectionHead&quot;&gt;&lt;div&gt;&lt;div class=&quot;kicker&quot;&gt;Where the market sits&lt;/div&gt;&lt;h2&gt;市场已把前四层逐步铺平，空缺集中在最后一层&lt;/h2&gt;&lt;/div&gt;&lt;p&gt;下图不是横向功能矩阵，而是各类产品目前公开承担的最高责任位置。&lt;/p&gt;&lt;/div&gt;
+  &lt;div class=&quot;panel&quot;&gt;
+    &lt;div class=&quot;stack&quot;&gt;
+      &lt;div class=&quot;stackCol&quot;&gt;&lt;h3&gt;① Rail / Settlement&lt;/h3&gt;&lt;p&gt;把钱可靠地移动、验证和结算。&lt;/p&gt;&lt;div class=&quot;chips&quot;&gt;&lt;span class=&quot;chip&quot;&gt;Canton&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Tempo&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;x402&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stackCol&quot;&gt;&lt;h3&gt;② Permission / Control&lt;/h3&gt;&lt;p&gt;受限凭证、金额、时间、调用范围和 Agent 身份。&lt;/p&gt;&lt;div class=&quot;chips&quot;&gt;&lt;span class=&quot;chip&quot;&gt;Tempo access keys&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Anyway policies&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Stripe SPT&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Visa / Mastercard&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stackCol&quot;&gt;&lt;h3&gt;③ Proof / Attestation&lt;/h3&gt;&lt;p&gt;Mandate、权利义务、Trace、Receipt 与争议证据。&lt;/p&gt;&lt;div class=&quot;chips&quot;&gt;&lt;span class=&quot;chip&quot;&gt;Canton / Daml&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;AP2&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Anyway traces&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Networks&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stackCol&quot;&gt;&lt;h3&gt;④ Remedy Rails&lt;/h3&gt;&lt;p&gt;退款、Reversal、Chargeback、Representment 和履约争议。&lt;/p&gt;&lt;div class=&quot;chips&quot;&gt;&lt;span class=&quot;chip&quot;&gt;Stripe&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Visa&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Mastercard&lt;/span&gt;&lt;span class=&quot;chip&quot;&gt;Merchants / PSPs&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;stackCol&quot;&gt;&lt;h3&gt;⑤ Covered Risk Transfer&lt;/h3&gt;&lt;p&gt;Agent 违反受保障委托且系统放行时，提供方先赔并承担或追偿。&lt;/p&gt;&lt;div class=&quot;chips&quot;&gt;&lt;span class=&quot;chip&quot;&gt;尚未发现公开通用产品&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;empty&quot;&gt;真正的空缺不是再造一层协议，而是把前四层接成 &lt;span&gt;“签字承保 + 先赔后追”&lt;/span&gt;。&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class=&quot;section&quot; id=&quot;cantonTempo&quot;&gt;
+  &lt;div class=&quot;sectionHead&quot;&gt;&lt;div&gt;&lt;div class=&quot;kicker&quot;&gt;Deep dive&lt;/div&gt;&lt;h2&gt;Canton 与 Tempo：很重要，但不是同一种“竞争”&lt;/h2&gt;&lt;/div&gt;&lt;p&gt;两者都可能成为 Isometry 的底层基础设施；它们也可能让别人在上面构建责任层，但公开产品本身并未完成这一跳。&lt;/p&gt;&lt;/div&gt;
+  &lt;div class=&quot;deepGrid&quot;&gt;
+    &lt;article class=&quot;deep&quot;&gt;
+      &lt;div class=&quot;deepTop&quot;&gt;&lt;div&gt;&lt;div class=&quot;kicker&quot;&gt;Canton Network&lt;/div&gt;&lt;h3&gt;最像“责任底座”，不是赔付主体&lt;/h3&gt;&lt;/div&gt;&lt;span class=&quot;tag substrate&quot;&gt;SUBSTRATE&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;verdict&quot;&gt;&lt;strong&gt;结论：&lt;/strong&gt;网络与 Daml 可以编码权利、义务、同意、授权和不可抵赖证据；但公开材料没有把 Canton 本身定义成 Agent 委托的承保人或赔付人。&lt;/div&gt;
+      &lt;div class=&quot;split&quot;&gt;
+        &lt;div class=&quot;box good&quot;&gt;&lt;h4&gt;它已经能提供&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;Daml 以权利与义务建模多方合同。&lt;/li&gt;&lt;li&gt;授权与一致性规则可阻止违反预先约定的状态变化。&lt;/li&gt;&lt;li&gt;隐私、原子交易、可追踪与不可抵赖适合金融工作流。&lt;/li&gt;&lt;li&gt;可用于 Escrow、条件释放、追偿权和多方同意。&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+        &lt;div class=&quot;box gap&quot;&gt;&lt;h4&gt;公开产品仍未承担&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;把用户自然语言编译成受保障 Permit。&lt;/li&gt;&lt;li&gt;判断“Agent 是否符合用户商业意图”。&lt;/li&gt;&lt;li&gt;对错误放行做用户侧即时 Make-whole。&lt;/li&gt;&lt;li&gt;配置准备金、定价理赔并承担追偿失败。&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;nuance&quot;&gt;&lt;strong&gt;关键区分：&lt;/strong&gt;智能合约可以表达“谁对谁负有义务”，不等于网络运营方主动对最终用户承担该义务。责任仍需由具体应用、合同主体或金融机构签字。&lt;/div&gt;
+      &lt;div class=&quot;implication&quot;&gt;&lt;strong&gt;对 Isometry：&lt;/strong&gt;Canton 可能是 Coverage Certificate、Evidence Packet、Escrow 与追偿权的优秀承载层。威胁不在 Canton 自己，而在某个银行、PSP 或应用方利用它率先成为承保主体。&lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;article class=&quot;deep tempo&quot;&gt;
+      &lt;div class=&quot;deepTop&quot;&gt;&lt;div&gt;&lt;div class=&quot;kicker&quot;&gt;Tempo&lt;/div&gt;&lt;h3&gt;Agent-friendly Rail，公开条款反向证明责任缺口&lt;/h3&gt;&lt;/div&gt;&lt;span class=&quot;tag no&quot;&gt;NO GENERAL COVER&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;verdict&quot;&gt;&lt;strong&gt;结论：&lt;/strong&gt;Tempo 提供稳定币支付、MPP Agent 支付、可限额 Access Key 和确定性结算；但其 Wallet 条款明确把 AI Agent 的配置、误操作、第三方付款请求和自动交易后果主要留给用户。&lt;/div&gt;
+      &lt;div class=&quot;split&quot;&gt;
+        &lt;div class=&quot;box good&quot;&gt;&lt;h4&gt;它已经能提供&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;支付优先链、稳定币原生费用、确定性结算。&lt;/li&gt;&lt;li&gt;MPP 的 Challenge → Pay → Receipt 机器支付流程。&lt;/li&gt;&lt;li&gt;Access Key 的有效期、周期限额与调用范围。&lt;/li&gt;&lt;li&gt;支付 Memo、批量/并行交易和私密支付能力。&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+        &lt;div class=&quot;box gap&quot;&gt;&lt;h4&gt;条款明确不保证&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;第三方付款请求的有效性、合法性或公平性。&lt;/li&gt;&lt;li&gt;Agent 使用有效凭证是否真实反映用户意图。&lt;/li&gt;&lt;li&gt;误配置、失控自动交易、AI 错误导致的损失。&lt;/li&gt;&lt;li&gt;链上交易撤销，以及控制措施必然阻止意外付款。&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;nuance&quot;&gt;&lt;strong&gt;一个值得注意的窄例外：&lt;/strong&gt;对部分由 Tempo Labs 直接销售的 Proxied Third-Party Services，它承诺处理履约失败并退还 API credits。这里责任出现，是因为 Tempo 成为了卖方，而不是因为它是一条链。&lt;/div&gt;
+      &lt;div class=&quot;implication&quot;&gt;&lt;strong&gt;对 Isometry：&lt;/strong&gt;Tempo 可用于内部准备金、即时垫赔、Escrow 和多方结算；但若 Isometry 只是在 Tempo 上发币或加限额，就仍然没有跨过责任鸿沟。&lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class=&quot;section&quot; id=&quot;players&quot;&gt;
+  &lt;div class=&quot;sectionHead&quot;&gt;&lt;div&gt;&lt;div class=&quot;kicker&quot;&gt;Adjacent players&lt;/div&gt;&lt;h2&gt;其他常见方案：控制和证据越来越强，责任仍被切出去&lt;/h2&gt;&lt;/div&gt;&lt;p&gt;点击查看每家公开做到的部分、留下的责任缺口，以及对 Isometry 的真实含义。&lt;/p&gt;&lt;/div&gt;
+  &lt;div class=&quot;panel&quot;&gt;
+    &lt;div class=&quot;scanShell&quot;&gt;
+      &lt;div class=&quot;tabs&quot; id=&quot;tabs&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot;&gt;
+        &lt;div class=&quot;detailHead&quot;&gt;&lt;div&gt;&lt;h3 id=&quot;dTitle&quot;&gt;&lt;/h3&gt;&lt;p id=&quot;dSub&quot;&gt;&lt;/p&gt;&lt;/div&gt;&lt;span id=&quot;dVerdict&quot; class=&quot;verdictPill&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detailGrid&quot;&gt;
+          &lt;div class=&quot;fact owns&quot;&gt;&lt;h4&gt;公开做到的层&lt;/h4&gt;&lt;ul id=&quot;dOwns&quot;&gt;&lt;/ul&gt;&lt;/div&gt;
+          &lt;div class=&quot;fact leaves&quot;&gt;&lt;h4&gt;公开留下的责任&lt;/h4&gt;&lt;ul id=&quot;dLeaves&quot;&gt;&lt;/ul&gt;&lt;/div&gt;
+          &lt;div class=&quot;take&quot; id=&quot;dTake&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;sources&quot;&gt;&lt;b&gt;官方来源&lt;/b&gt;&lt;div class=&quot;sourceLinks&quot; id=&quot;dSources&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class=&quot;section&quot; id=&quot;threats&quot;&gt;
+  &lt;div class=&quot;sectionHead&quot;&gt;&lt;div&gt;&lt;div class=&quot;kicker&quot;&gt;Competitive implication&lt;/div&gt;&lt;h2&gt;谁是供应商，谁是潜在威胁，谁最可能向上吃掉责任层&lt;/h2&gt;&lt;/div&gt;&lt;p&gt;真正的威胁不是某条链已有同样产品，而是拥有支付闸门、争议网络和资产负债表的 incumbent 决定承担这层责任。&lt;/p&gt;&lt;/div&gt;
+  &lt;div class=&quot;panel&quot;&gt;
+    &lt;div class=&quot;threatGrid&quot;&gt;
+      &lt;div class=&quot;threat partner&quot;&gt;&lt;h3&gt;更像供应商：Canton / Tempo / x402&lt;/h3&gt;&lt;p&gt;提供合约、结算、稳定币和机器支付原语。它们降低 Isometry 的工程成本，但不会自动替 Isometry 编译意图、垫赔或追偿。&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;threat high&quot;&gt;&lt;h3&gt;最高潜在威胁：Stripe / Visa / Mastercard&lt;/h3&gt;&lt;p&gt;它们已有支付闸门、身份、风控、争议网络和资金能力。当前公开产品未承诺通用 Agent 越权赔付，但最有能力把它捆绑进现有网络。&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;threat med&quot;&gt;&lt;h3&gt;邻近产品：AP2 / Anyway&lt;/h3&gt;&lt;p&gt;AP2 可能标准化 Mandate 与证据；Anyway 在补控制、Sandbox 与 Trace。它们能让责任层更容易构建，也可能压缩“只做 Permit/Trace”的价值。&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;falsify&quot;&gt;
+      &lt;div class=&quot;fCard win&quot;&gt;&lt;h3&gt;Isometry 必须拥有，才不被基础设施吞掉&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Coverage Certificate 的条款定义权与定价权。&lt;/li&gt;&lt;li&gt;被承保交易的结算前硬否决权。&lt;/li&gt;&lt;li&gt;用户侧先赔体验和风险准备金。&lt;/li&gt;&lt;li&gt;跨 Rail 的 Evidence / Liability Router。&lt;/li&gt;&lt;li&gt;对失败数据、追偿率和损失曲线的独占积累。&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+      &lt;div class=&quot;fCard stop&quot;&gt;&lt;h3&gt;会证伪方向的外部变化&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;卡网络或 Stripe 低成本捆绑标准 Agent 越权保障。&lt;/li&gt;&lt;li&gt;AI 平台选择自保并拒绝第三方责任层。&lt;/li&gt;&lt;li&gt;商户/Issuer 不开放足够证据和争议接口，导致无法追偿。&lt;/li&gt;&lt;li&gt;客户只愿意为限额和日志付钱，不愿为责任转移付钱。&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class=&quot;section&quot; id=&quot;sources&quot;&gt;
+  &lt;div class=&quot;sectionHead&quot;&gt;&lt;div&gt;&lt;div class=&quot;kicker&quot;&gt;Source trail&lt;/div&gt;&lt;h2&gt;主要官方资料&lt;/h2&gt;&lt;/div&gt;&lt;p&gt;页面结论以这些公开资料为依据；法律责任仍以实际合同、卡组织规则和司法辖区为准。&lt;/p&gt;&lt;/div&gt;
+  &lt;div class=&quot;panel&quot;&gt;&lt;div class=&quot;sourceList&quot; id=&quot;sourceList&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;footer class=&quot;footer&quot;&gt;&lt;div&gt;Isometry Agentic Payment 责任层缺口扫描 · 2026-06-19&lt;br/&gt;不构成法律、保险或卡组织责任意见。&lt;/div&gt;&lt;div&gt;本页不是竞品矩阵；它只判断各方案公开承担到责任栈的哪一层。&lt;/div&gt;&lt;/footer&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const players=[
+ {id:&#x27;x402&#x27;,icon:&#x27;402&#x27;,title:&#x27;x402&#x27;,sub:&#x27;HTTP-native payment protocol&#x27;,verdict:&#x27;不是责任层&#x27;,v:&#x27;v-no&#x27;,owns:[&#x27;把付款要求嵌入 HTTP 402。&#x27;,&#x27;Facilitator 验证付款并提交结算。&#x27;,&#x27;适合 API、内容和 Agent 的按次支付。&#x27;],leaves:[&#x27;不解释用户为什么授权这次购买。&#x27;,&#x27;不判断商品或服务是否符合委托。&#x27;,&#x27;协议本身不提供退款、赔付或风险资本。&#x27;],take:&#x27;x402 解决的是 &lt;strong&gt;payment requirement → verify → settle&lt;/strong&gt;。Isometry 可以把它当执行 Rail，但不能把 Facilitator 的“验证付款”误认为“验证委托”。&#x27;,sources:[[&#x27;x402 Introduction&#x27;,&#x27;https://docs.x402.org/introduction&#x27;],[&#x27;Facilitator&#x27;,&#x27;https://docs.x402.org/core-concepts/facilitator&#x27;],[&#x27;x402 FAQ&#x27;,&#x27;https://docs.x402.org/faq&#x27;]]},
+ {id:&#x27;anyway&#x27;,icon:&#x27;A&#x27;,title:&#x27;Anyway&#x27;,sub:&#x27;Agent wallet / payment OS&#x27;,verdict:&#x27;有控制与 Trace，明确不承责&#x27;,v:&#x27;v-no&#x27;,owns:[&#x27;Agent-native payment routing、Sandbox 与可验证 Agent traces。&#x27;,&#x27;Wallet permissions、spending limits 和撤销机制。&#x27;,&#x27;覆盖 crypto / fiat 与多协议整合的产品叙事。&#x27;],leaves:[&#x27;条款把 Agent 活动视为用户直接行为。&#x27;,&#x27;用户自行配置权限、时长、白名单和限额。&#x27;,&#x27;明确排除 Agent hallucination、错误逻辑、过宽权限等损失责任。&#x27;],take:&#x27;Anyway 已不只是“环境变量钱包”，它正在补安全与证据；但其合同边界仍是 &lt;strong&gt;工具提供方&lt;/strong&gt;，不是 Agent 交易的承保人。&#x27;,sources:[[&#x27;Anyway product&#x27;,&#x27;https://anyway.sh/&#x27;],[&#x27;Anyway Terms&#x27;,&#x27;https://anyway.sh/terms-of-services&#x27;]]},
+ {id:&#x27;ap2&#x27;,icon:&#x27;AP2&#x27;,title:&#x27;Google AP2&#x27;,sub:&#x27;Mandate / trust protocol&#x27;,verdict:&#x27;证据协议，不是赔付主体&#x27;,v:&#x27;v-substrate&#x27;,owns:[&#x27;用可验证 Mandate 记录用户指令。&#x27;,&#x27;覆盖 human-present 与 human-not-present 授权。&#x27;,&#x27;为商户、支付网络和 Agent 提供共同证据语言。&#x27;],leaves:[&#x27;协议不决定谁为哪些条款提供金融保障。&#x27;,&#x27;不提供准备金、垫付和 Claim operations。&#x27;,&#x27;最终责任仍依赖参与方合同与现有支付规则。&#x27;],take:&#x27;AP2 会把 Intent / Cart / Payment evidence 标准化，因此 &lt;strong&gt;Permit 本身会商品化&lt;/strong&gt;。Isometry 必须在协议之上拥有承保、闸门和 Remedy。&#x27;,sources:[[&#x27;Google AP2 announcement&#x27;,&#x27;https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol&#x27;]]},
+ {id:&#x27;stripe&#x27;,icon:&#x27;S&#x27;,title:&#x27;Stripe Agentic Commerce&#x27;,sub:&#x27;SPT / commerce / dispute infrastructure&#x27;,verdict:&#x27;最接近，但当前不承担通用 Agent 越权损失&#x27;,v:&#x27;v-partial&#x27;,owns:[&#x27;Shared Payment Token 可限制使用和到期，并隐藏底层凭证。&#x27;,&#x27;商户保持 Merchant of Record，可沿用退款与争议流程。&#x27;,&#x27;Stripe 已有 Radar、Disputes、Smart Disputes 和 MoR 能力。&#x27;],leaves:[&#x27;Agentic Commerce 条款把 Agent 接口、用户系统和权限责任留给使用方。&#x27;,&#x27;明确不承担 Agentic disputes、refunds 及相关损失。&#x27;,&#x27;因 bugs、hallucinations、误解或超越权限导致的未授权 Agent 交易，由使用方负责。&#x27;],take:&#x27;Stripe 是最危险的潜在上行竞争者，因为它已有闸门、商户关系和争议网络；但其当前公开条款恰好证明 &lt;strong&gt;Agent 委托责任仍没有被 Stripe 吞下&lt;/strong&gt;。&#x27;,sources:[[&#x27;Shared Payment Tokens&#x27;,&#x27;https://docs.stripe.com/agentic-commerce/concepts/shared-payment-tokens&#x27;],[&#x27;Agentic Commerce Suite&#x27;,&#x27;https://stripe.com/blog/agentic-commerce-suite&#x27;],[&#x27;Stripe Agentic terms&#x27;,&#x27;https://stripe.com/en-jp/legal/ssa-services-terms&#x27;]]},
+ {id:&#x27;visa&#x27;,icon:&#x27;V&#x27;,title:&#x27;Visa Intelligent Commerce&#x27;,sub:&#x27;Network identity / control / disputes&#x27;,verdict:&#x27;部分责任基础设施&#x27;,v:&#x27;v-partial&#x27;,owns:[&#x27;Tokenized credentials、Agent identity 和交易控制。&#x27;,&#x27;允许用户设置金额、条件与商户限制。&#x27;,&#x27;把 Agent 信号送入授权和争议管理；公开讨论新责任模型。&#x27;],leaves:[&#x27;未见公开通用承诺：Agent 突破用户委托时由 Visa 直接 Make-whole。&#x27;,&#x27;Issuer、商户、Agentic Payment Provider 的责任仍由计划规则和合同分配。&#x27;,&#x27;最终赔付依赖具体产品、发行方与卡组织责任规则。&#x27;],take:&#x27;Visa 正在重写 Agentic transaction rules，是强合作方也是强威胁。Isometry 的空间取决于它能否成为网络认可的 &lt;strong&gt;Agentic Payment Enabler / evidence provider / guarantor&lt;/strong&gt;，而不是与网络平行。&#x27;,sources:[[&#x27;Visa Intelligent Commerce&#x27;,&#x27;https://www.visa.com/en-us/solutions/intelligent-commerce&#x27;],[&#x27;Visa Agentic Commerce architecture&#x27;,&#x27;https://corporate.visa.com/en/services/visa-consulting-analytics/insights/vca-agentic-commerce-autonomous-payments.html&#x27;],[&#x27;Visa Core Rules&#x27;,&#x27;https://usa.visa.com/dam/VCOM/download/about-visa/visa-rules-public.pdf&#x27;]]},
+ {id:&#x27;mastercard&#x27;,icon:&#x27;MC&#x27;,title:&#x27;Mastercard Agent Pay&#x27;,sub:&#x27;Agent token / verifiable intent / liability review&#x27;,verdict:&#x27;部分责任基础设施&#x27;,v:&#x27;v-partial&#x27;,owns:[&#x27;Agentic Tokens、权限和 limits。&#x27;,&#x27;Verifiable Intent 与 Agent 交易可追踪性。&#x27;,&#x27;公开强调授权证据、chargeback、争议和 liability review。&#x27;],leaves:[&#x27;“支持 liability review”不等于 Mastercard 对所有 Agent scope breach 先行赔付。&#x27;,&#x27;没有公开通用 Coverage Certificate 或 Agent 越权 Make-whole 条款。&#x27;,&#x27;最终责任仍需 issuer、merchant、platform 和具体项目规则落地。&#x27;],take:&#x27;Mastercard 已经向“证据 + Liability review”走得很近。Isometry 的差异必须是 &lt;strong&gt;对具体受保障条款签字并出钱&lt;/strong&gt;，而不是再做一份 Agent trace。&#x27;,sources:[[&#x27;Agent Pay for Machines&#x27;,&#x27;https://www.mastercard.com/global/en/news-and-trends/press/2026/june/mastercard-launches-agent-pay-for-machines.html&#x27;],[&#x27;Verifiable Intent&#x27;,&#x27;https://www.mastercard.com/us/en/news-and-trends/stories/2026/verifiable-intent.html&#x27;]]}
+];
+const allSources=[
+ [&#x27;Canton ledger integrity&#x27;,&#x27;https://docs.digitalasset.com/overview/3.4/explanations/ledger-model/ledger-integrity.html&#x27;,&#x27;Daml 权利、义务、同意、授权与一致性规则。&#x27;],
+ [&#x27;Canton application best practices&#x27;,&#x27;https://docs.digitalasset.com/build/3.5/sdlc-howtos/sdlc-best-practices.html&#x27;,&#x27;原子交易、隐私、不可抵赖与数据主权。&#x27;],
+ [&#x27;Canton regulatory perspective&#x27;,&#x27;https://www.canton.network/blog/the-canton-network-a-regulatory-perspective-1&#x27;,&#x27;Daml 在权利义务和受监管工作流中的定位。&#x27;],
+ [&#x27;Tempo agentic payments&#x27;,&#x27;https://docs.tempo.xyz/guide/machine-payments&#x27;,&#x27;MPP Agent 支付、Challenge、Credential 与 Receipt。&#x27;],
+ [&#x27;Tempo access keys&#x27;,&#x27;https://docs.tempo.xyz/guide/use-accounts/authorize-access-keys&#x27;,&#x27;Access Key、到期、消费限额和权限。&#x27;],
+ [&#x27;Tempo Wallet terms&#x27;,&#x27;https://wallet.tempo.xyz/support/terms-of-service&#x27;,&#x27;Agent 自动交易责任、第三方付款请求与窄范围退款责任。&#x27;],
+ [&#x27;x402 docs&#x27;,&#x27;https://docs.x402.org/introduction&#x27;,&#x27;HTTP 402 的支付要求、验证与结算。&#x27;],
+ [&#x27;Anyway terms&#x27;,&#x27;https://anyway.sh/terms-of-services&#x27;,&#x27;Agent 权限配置及 Agent-initiated loss 的责任分配。&#x27;],
+ [&#x27;Google AP2&#x27;,&#x27;https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol&#x27;,&#x27;Mandates 与可验证授权证据。&#x27;],
+ [&#x27;Stripe agentic terms&#x27;,&#x27;https://stripe.com/en-jp/legal/ssa-services-terms&#x27;,&#x27;Agentic disputes、refunds 和 unauthorized agentic transactions 的责任边界。&#x27;],
+ [&#x27;Visa autonomous payments&#x27;,&#x27;https://corporate.visa.com/en/services/visa-consulting-analytics/insights/vca-agentic-commerce-autonomous-payments.html&#x27;,&#x27;Intent、Agent identity、delegated credentials、disputes 与新责任模型。&#x27;],
+ [&#x27;Mastercard Agent Pay for Machines&#x27;,&#x27;https://www.mastercard.com/global/en/news-and-trends/press/2026/june/mastercard-launches-agent-pay-for-machines.html&#x27;,&#x27;授权证据、chargeback、dispute resolution 与 liability review。&#x27;]
+];
+function renderTabs(){const root=document.getElementById(&#x27;tabs&#x27;);root.innerHTML=players.map((p,i)=&gt;`&lt;button class=&quot;tab ${i===0?&#x27;active&#x27;:&#x27;&#x27;}&quot; data-id=&quot;${p.id}&quot;&gt;&lt;span class=&quot;icon&quot;&gt;${p.icon}&lt;/span&gt;&lt;span&gt;&lt;b&gt;${p.title}&lt;/b&gt;&lt;small&gt;${p.sub}&lt;/small&gt;&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;);root.querySelectorAll(&#x27;.tab&#x27;).forEach(b=&gt;b.addEventListener(&#x27;click&#x27;,()=&gt;selectPlayer(b.dataset.id)))}
+function selectPlayer(id){const p=players.find(x=&gt;x.id===id);document.querySelectorAll(&#x27;.tab&#x27;).forEach(b=&gt;b.classList.toggle(&#x27;active&#x27;,b.dataset.id===id));document.getElementById(&#x27;dTitle&#x27;).textContent=p.title;document.getElementById(&#x27;dSub&#x27;).textContent=p.sub;const v=document.getElementById(&#x27;dVerdict&#x27;);v.textContent=p.verdict;v.className=&#x27;verdictPill &#x27;+p.v;document.getElementById(&#x27;dOwns&#x27;).innerHTML=p.owns.map(x=&gt;`&lt;li&gt;${x}&lt;/li&gt;`).join(&#x27;&#x27;);document.getElementById(&#x27;dLeaves&#x27;).innerHTML=p.leaves.map(x=&gt;`&lt;li&gt;${x}&lt;/li&gt;`).join(&#x27;&#x27;);document.getElementById(&#x27;dTake&#x27;).innerHTML=p.take;document.getElementById(&#x27;dSources&#x27;).innerHTML=p.sources.map(s=&gt;`&lt;a href=&quot;${s[1]}&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot;&gt;${s[0]}&lt;/a&gt;`).join(&#x27;&#x27;)}
+function renderSources(){document.getElementById(&#x27;sourceList&#x27;).innerHTML=allSources.map(s=&gt;`&lt;div class=&quot;sourceItem&quot;&gt;&lt;b&gt;${s[0]}&lt;/b&gt;&lt;a href=&quot;${s[1]}&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot;&gt;${s[1]}&lt;/a&gt;&lt;p&gt;${s[2]}&lt;/p&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}
+renderTabs();selectPlayer(players[0].id);renderSources();
+document.getElementById(&#x27;jumpTempo&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;document.getElementById(&#x27;cantonTempo&#x27;).scrollIntoView({behavior:&#x27;smooth&#x27;}));document.getElementById(&#x27;printBtn&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;window.print());
+document.getElementById(&#x27;copyBtn&#x27;).addEventListener(&#x27;click&#x27;,async()=&gt;{const text=&#x27;责任层缺口扫描：Canton 更像可编码权利义务、隐私和证据的底座；Tempo 更像 Agent-friendly 稳定币 Rail，且公开条款把多数 Agent 自动交易风险留给用户。x402、AP2、Anyway、Stripe、Visa、Mastercard 已覆盖结算、控制、证据和争议的不同部分，但截至 2026-06-19，尚未发现公开的通用产品承诺：若 Agent 交易通过其闸门却违反受保障委托，提供方先行赔付并承担或追偿。Isometry 的候选空缺是 Coverage Certificate + Hard Gate + Evidence + Make-whole + Recovery。&#x27;;try{await navigator.clipboard.writeText(text);const b=document.getElementById(&#x27;copyBtn&#x27;);b.textContent=&#x27;已复制&#x27;;setTimeout(()=&gt;b.textContent=&#x27;复制核心结论&#x27;,1500)}catch(e){prompt(&#x27;复制以下内容：&#x27;,text)}});
+&lt;/script&gt;
+
+&lt;script&gt;
+(function(){
+  function reportHeight(){
+    var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
+    parent.postMessage({type:&#x27;isometry-competitor-scan-height&#x27;,height:h},&#x27;*&#x27;);
+  }
+  window.addEventListener(&#x27;load&#x27;,function(){reportHeight();setTimeout(reportHeight,250);setTimeout(reportHeight,900)});
+  window.addEventListener(&#x27;resize&#x27;,reportHeight);
+  if(window.ResizeObserver){new ResizeObserver(reportHeight).observe(document.documentElement)}
+  document.addEventListener(&#x27;click&#x27;,function(){setTimeout(reportHeight,80)});
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+    </div>
+  </section>
+
   <section class="section" id="open">
     <div class="section-head">
       <div><div class="section-kicker">Open decisions</div><h2>仍未拍板的问题：保留多个可选方案</h2></div>
@@ -686,8 +929,8 @@
   </section>
 
   <footer class="footer">
-    <div>Isometry Agentic Payment 方向评审稿 · 2026-06-18<br/>不构成法律、保险或卡组织责任意见。</div>
-    <div>本报告刻意不提供竞品矩阵和 GTM；外部资料仅用于证明授权、Token 与消费控制正在基础设施化。</div>
+    <div>Isometry Agentic Payment 方向评审稿 · 2026-06-19<br/>不构成法律、保险或卡组织责任意见。</div>
+    <div>本报告不讨论 GTM；“责任层缺口扫描”已内嵌，聚焦谁承担到责任栈的哪一层，而非功能数量排名。</div>
   </footer>
 </div>
 
@@ -892,6 +1135,29 @@ document.getElementById('modeBtn').addEventListener('click',e=>{
   e.target.classList.toggle('active',compact);
   window.scrollTo({top:0,behavior:'smooth'});
 });
+
+window.addEventListener('message',function(event){
+  if(!event.data || event.data.type!=='isometry-competitor-scan-height') return;
+  var frame=document.getElementById('competitorFrame');
+  if(!frame) return;
+  var h=Number(event.data.height);
+  if(Number.isFinite(h) && h>600) if(Math.abs(frame.getBoundingClientRect().height-h)>4) frame.style.height=h+'px';
+});
+(function(){
+  var frame=document.getElementById('competitorFrame');
+  if(!frame) return;
+  function sizeFromDocument(){
+    try{
+      var doc=frame.contentDocument;
+      if(!doc) return;
+      var h=Math.max(doc.documentElement.scrollHeight,doc.body?doc.body.scrollHeight:0);
+      if(h>600) if(Math.abs(frame.getBoundingClientRect().height-h)>4) frame.style.height=h+'px';
+    }catch(e){}
+  }
+  frame.addEventListener('load',function(){sizeFromDocument();setTimeout(sizeFromDocument,300);setTimeout(sizeFromDocument,1000)});
+  window.addEventListener('resize',function(){setTimeout(sizeFromDocument,100)});
+})();
+
 </script>
 </body>
 </html>
