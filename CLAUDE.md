@@ -18,7 +18,12 @@
 
 ## 约束
 
-- 每个页面是**单文件 HTML，CSS / JS 全部内联**，无 build、无外部依赖——保持这个形态，别拆文件、别引外部包。
-- 尽量沿用已有的视觉语言（暖纸色背景、neo-brutalist 硬阴影、桔色主调、双语），让几个页面像一套。
+- 每个页面是**单文件 HTML，CSS / JS 全部内联**，无 build——保持这个形态，别拆文件、别引外部包。唯一允许的共享外部依赖是 `<head>` 里那条 Google Fonts（Fraunces / IBM Plex Sans+Mono / Noto Serif SC）。
+- **共用一套深色视觉语言**，让几个页面像一套，并和主站 pland.world 一致：
+  - 近黑底 `#0e1116`、暖金主调 `--accent:#e0a346`、卡片面 `#1a2029`；细边框 + 金色左线 / 微光，**不要 neo-brutalist 硬黑阴影**。
+  - 标题用衬线 `--serif`（Fraunces + Noto Serif SC），正文 `--sans`（IBM Plex Sans + 苹方），kicker / 标签 / 数字用等宽 `--mono`（IBM Plex Mono）。
+  - 完整 token 与组件写法以 `site/index.html` 为准（canonical 参考），新页直接照搬它的 `:root` 和组件类。
+- 纯风格 / 主题统一（不改任何文案、JS 逻辑、交互）是允许的，哪怕动到别人的页——但要由 PlanD 协调发起；**内容仍然只有负责人能改**。
 - 根目录的 `README.md`、`CLAUDE.md` 等共享文件不要擅自改，需先和 PlanD 协调。
 - commit 时只提交你自己的页面，不要把别人的文件一起带上。
+- 部署：push 到 `main` 且改动 `site/**` 会经 GitHub Action 自动同步到 pland-world 仓并由 Cloudflare 部署到 `pland.world/2026-06-agentic-payment/`，无需手动操作。
