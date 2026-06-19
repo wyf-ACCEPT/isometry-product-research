@@ -1,0 +1,53 @@
+name: Sync site to pland.world
+
+# On every push to main that touches site/, copy the built HTML pages into
+# the pland-world repo (which Cloudflare serves) under a dated subfolder.
+# Auth: an SSH deploy key with write access to pland-world, stored as the
+# PLAND_WORLD_DEPLOY_KEY secret in this repo.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/sync-to-pland-world.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: sync-pland-world
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+
+      - name: Checkout pland-world (deploy target)
+        uses: actions/checkout@v4
+        with:
+          repository: wyf-ACCEPT/pland-world
+          ssh-key: ${{ secrets.PLAND_WORLD_DEPLOY_KEY }}
+          path: pland-world
+
+      - name: Copy site pages into dated subfolder
+        run: |
+          DEST="pland-world/2026-06-agentic-payment"
+          mkdir -p "$DEST"
+          rm -f "$DEST"/*.html
+          cp site/*.html "$DEST"/
+          echo "Synced files:" && ls -1 "$DEST"
+
+      - name: Commit & push if changed
+        run: |
+          cd pland-world
+          git config user.name "isometry-research-sync[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add 2026-06-agentic-payment
+          if git diff --cached --quiet; then
+            echo "No changes to sync."
+          else
+            git commit -m "sync: agentic-payment research @ ${GITHUB_SHA::7}"
+            git push
+          fi
