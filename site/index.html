@@ -63,9 +63,39 @@
   .footer-note{margin-top:28px;border-radius:24px;background:#171411;color:#fff;padding:22px 24px;text-align:center;font-size:20px;font-weight:1000;letter-spacing:-.02em;box-shadow:var(--shadow);line-height:1.4}
   .footer-note span{color:#ffb18d}
 
+  /* 合成 / 收敛区块 */
+  .synth{margin-top:28px;border:1px solid rgba(188,174,156,.75);border-radius:28px;background:rgba(255,250,242,.92);box-shadow:var(--shadow);padding:30px 30px 28px;overflow:hidden}
+  .synth-premises{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .premise{border:1px solid var(--line2);border-radius:18px;background:#fff;padding:16px 16px 15px;border-top:4px solid var(--ink)}
+  .premise.p1{border-top-color:#b94832}
+  .premise.p2{border-top-color:#b07014}
+  .premise.p3{border-top-color:var(--accent)}
+  .premise .pm-top{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .premise .pm-emoji{font-size:18px;width:34px;height:34px;display:grid;place-items:center;border:1.5px solid var(--line2);border-radius:9px;background:#fffaf6;flex:none}
+  .premise .pm-who{font-weight:900;font-size:13px;line-height:1.1}
+  .premise .pm-who small{display:block;font-weight:800;font-size:11px;color:var(--muted);margin-top:2px}
+  .premise .pm-cut{font-weight:900;font-size:15px;letter-spacing:-.02em;margin:0 0 6px}
+  .premise .pm-cut span{color:var(--accent)}
+  .premise p{margin:0;color:#3d352e;font-size:13px;line-height:1.55}
+  .converge{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-weight:900;font-size:13px;letter-spacing:.18em;margin:16px 0 6px;text-transform:uppercase}
+  .converge:before,.converge:after{content:"";height:2px;width:64px;background:linear-gradient(90deg,transparent,var(--line2))}
+  .converge:after{transform:scaleX(-1)}
+  .nexus{border:2px solid var(--ink);border-radius:20px;background:#171411;color:#fff;box-shadow:8px 8px 0 #171411;padding:20px 22px;text-align:center}
+  .nexus .nx-word{font-size:30px;font-weight:1000;letter-spacing:-.03em;line-height:1.1}
+  .nexus .nx-word span{color:#ffb18d}
+  .nexus .nx-sub{margin-top:7px;font-size:14px;color:#e7ddd0;line-height:1.5}
+  .thesis{margin-top:18px;border:2px solid var(--ink);border-radius:20px;background:#fff;box-shadow:6px 6px 0 #171411;padding:18px 20px}
+  .thesis b.lab{display:inline-block;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .thesis p{margin:0;font-size:16.5px;line-height:1.6;color:#2b2620;font-weight:600}
+  .thesis p .hl{color:var(--accent);font-weight:900}
+  .caveat{margin-top:14px;border:1px dashed rgba(176,112,20,.55);border-radius:16px;background:#fdf6ea;padding:14px 16px;font-size:13.5px;line-height:1.6;color:#5c4a23}
+  .caveat b{color:#000}
+  .caveat .qs{color:#7a6433;font-size:12.5px}
+
   @media(max-width:860px){
     h1{font-size:40px}.cards{grid-template-columns:1fr}.definition-grid{grid-template-columns:1fr}
     .section-title{display:block}.section-title p{text-align:left;margin-top:8px}.topbar{display:block}.tag{display:inline-block;margin-top:12px}
+    .synth-premises{grid-template-columns:1fr}.converge:before,.converge:after{width:36px}.nexus .nx-word{font-size:24px}
   }
   @media(max-width:560px){.page{padding:24px 14px 44px}.hero-card{padding:26px 22px}h1{font-size:34px}.subtitle{font-size:17px}.punchline{font-size:18px}}
 </style>
@@ -118,7 +148,44 @@
       </div>
     </section>
 
-    <div class="footer-note">杀死两个最危险的默认假设——<span>"一定要稳定币" 和 "买家是开发者"</span>——用 Stripe 母题当刀。还站着的那个，就是答案。</div>
+    <section class="section">
+      <div class="section-title">
+        <h2>三条路，一个交点</h2>
+        <p>我们没事先商量收敛到哪——各自下注、各砍一刀，最后都停在同一个词上。</p>
+      </div>
+      <div class="synth">
+        <div class="synth-premises">
+          <div class="premise p1">
+            <div class="pm-top"><span class="pm-emoji">⚔️</span><span class="pm-who">应淼<small>反方 · rail</small></span></div>
+            <div class="pm-cut">砍掉 <span>"必须稳定币"</span></div>
+            <p>赢家要的是「授权」，不是新货币轨道；rail 是实现细节。而且可逆性才是刚需——稳定币恰恰不可逆。</p>
+          </div>
+          <div class="premise p2">
+            <div class="pm-top"><span class="pm-emoji">🧾</span><span class="pm-who">思芃<small>反方 · 买家</small></span></div>
+            <div class="pm-cut">砍掉 <span>"买家是开发者"</span></div>
+            <p>真买家是扛不起 agent 花钱风险的人。付款成功 ≠ 交易正确——产品要替他做委托、检查、留证、补救。</p>
+          </div>
+          <div class="premise p3">
+            <div class="pm-top"><span class="pm-emoji">🧱</span><span class="pm-who">PlanD<small>透镜 / 框架</small></span></div>
+            <div class="pm-cut">递上 <span>那把刀</span></div>
+            <p>Stripe 母题：护城河不在更快的管子，在你本能想外包的那块脏活——防欺诈、承担损失、承保。</p>
+          </div>
+        </div>
+        <div class="converge">收敛</div>
+        <div class="nexus">
+          <div class="nx-word">责任 · <span>谁为 agent 花的这笔钱负责</span></div>
+          <div class="nx-sub">Liability / Underwriting —— 三刀砍完，唯一还站着的东西。</div>
+        </div>
+        <div class="thesis">
+          <b class="lab">v0 方向（待团队拍板）</b>
+          <p>Isometry 做 agentic payment 的 <span class="hl">责任层</span>：不是更快的管子，不是新币种，而是替用户吞下每一笔 agent 支出的 <span class="hl">授权 · 证据 · 赔付</span>。它天生是脏活（= 护城河），也天生 rail-agnostic（稳定币只是一种可选实现）。</p>
+        </div>
+        <div class="caveat">
+          <b>唯一还没答的问题：我们到底能不能真的"赔"？</b> 这正是责任层立不立得住的命门，也是下一步要钻的——而它恰好接上 Isometry / Lindsay 的银行与牌照资源。<br />
+          <span class="qs">待答：授权规则谁定 · 我们承保什么 · 赔付资本与牌照从哪来 · 出错怎么裁决 · 第一笔可承保交易是什么。</span>
+        </div>
+      </div>
+    </section>
   </main>
 </body>
 </html>
