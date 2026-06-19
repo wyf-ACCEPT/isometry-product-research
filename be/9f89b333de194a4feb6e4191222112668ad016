@@ -1,0 +1,21 @@
+notes/6f19-meeting-brief.md
+  s_3c36663240c7c0::t_0bfb0f6e88c691 1-99
+context/6f19-product-discussion.txt
+  s_3c36663240c7c0::t_0bfb0f6e88c691 1-363
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "be9f89b333de194a4feb6e4191222112668ad016",
+  "prompts": {},
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
