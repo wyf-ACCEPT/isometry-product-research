@@ -1,0 +1,29 @@
+site/pland-stripe.html
+  s_3c36663240c7c0::t_93da045e59b000 236
+  s_3c36663240c7c0::t_8ba46e41ea6d0c 47,49
+site/index.html
+  s_3c36663240c7c0::t_a29733c55cfe09 37-38
+  s_3c36663240c7c0::t_f9d91c48016c45 120
+site/sipeng-permit.html
+  s_3c36663240c7c0::t_cedc542e4269f0 52-53
+  s_3c36663240c7c0::t_f585fa3dd4a0a3 184
+site/yingmiao-no-stablecoin.html
+  s_3c36663240c7c0::t_6c30e2d8c70e92 44-45
+  s_3c36663240c7c0::t_e21dba724dc7b1 143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "517f16f1c2b2ef97494704ff145dae04bb0a544e",
+  "prompts": {},
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
