@@ -1,0 +1,19 @@
+.github/workflows/sync-to-pland-world.yml
+  s_3c36663240c7c0::t_80570846dcfed0 1-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "8ace15c7b875dd9dc423346b18d28ecd765c3936",
+  "prompts": {},
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
