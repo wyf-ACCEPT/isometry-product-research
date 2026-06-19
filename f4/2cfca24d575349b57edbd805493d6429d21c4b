@@ -1,0 +1,19 @@
+CLAUDE.md
+  s_3c36663240c7c0::t_445e17c3afe3c8 21-26,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "f42cfca24d575349b57edbd805493d6429d21c4b",
+  "prompts": {},
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
