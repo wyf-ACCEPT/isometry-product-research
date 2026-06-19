@@ -1,0 +1,23 @@
+site/index.html
+  s_3c36663240c7c0::t_24203defc3749b 160
+  s_3c36663240c7c0::t_726942ab6c8a30 68-69
+  s_3c36663240c7c0::t_02e50848995c6d 75-76
+  s_3c36663240c7c0::t_2a108eaaea4c9d 148
+  s_3c36663240c7c0::t_476ddfed2bbad5 154
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "53bf1cae9b8ae9d57f6f2cee7b3f052ed7568d1e",
+  "prompts": {},
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
