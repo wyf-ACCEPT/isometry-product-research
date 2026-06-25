@@ -1,0 +1,22 @@
+site/ideas-tree/index.html
+  s_da7a720f5086c8::t_4c8e94bb134cca 240-243
+  s_da7a720f5086c8::t_daf799ed568bc6 53-58
+  s_da7a720f5086c8::t_5c8fc14a55507b 7
+  s_da7a720f5086c8::t_692f7b6223b6b2 133
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "f3bfd9b02a5bd8d43df6c3d0a86cd8418bfe31ef",
+  "prompts": {},
+  "sessions": {
+    "s_da7a720f5086c8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "56054542-8b9b-4204-a9ea-deb5f6c4893d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
