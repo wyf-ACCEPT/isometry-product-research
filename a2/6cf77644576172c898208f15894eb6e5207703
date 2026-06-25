@@ -1,0 +1,22 @@
+site/ideas-tree/index.html
+  s_da7a720f5086c8::t_5d2e9a03d30764 264
+  s_da7a720f5086c8::t_55b41744b860ce 285
+site/ideas-tree/layer-2.html
+  s_da7a720f5086c8::t_ad8e7bf33ac7b6 131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "a26cf77644576172c898208f15894eb6e5207703",
+  "prompts": {},
+  "sessions": {
+    "s_da7a720f5086c8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "56054542-8b9b-4204-a9ea-deb5f6c4893d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
