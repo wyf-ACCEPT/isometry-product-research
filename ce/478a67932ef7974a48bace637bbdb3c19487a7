@@ -1,0 +1,24 @@
+site/index.html
+  s_3c36663240c7c0::t_2e8eac53ba65d4 96,117-118
+  s_3c36663240c7c0::t_e24027922d964a 7-8,18,33,35,42,44-46,48,50-68,72-74,76,84,88-90,93-94,97-101,103,105-109,111-116,119-120,122-126,128-130
+site/initial-research/index.html
+  s_3c36663240c7c0::t_2e8eac53ba65d4 1-223
+CLAUDE.md
+  s_3c36663240c7c0::t_2e8eac53ba65d4 3,7,13,15-21,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "ce478a67932ef7974a48bace637bbdb3c19487a7",
+  "prompts": {},
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
