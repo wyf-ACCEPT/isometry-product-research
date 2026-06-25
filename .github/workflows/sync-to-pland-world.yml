@@ -36,7 +36,7 @@ jobs:
           DEST="pland-world/2026-06-agentic-payment"
           mkdir -p "$DEST"
           # Mirror the whole site/ tree (incl. subdirectories) into DEST so
-          # nested page clusters like site/sipeng-ideas-tree/ also deploy.
+          # nested page clusters like site/ideas-tree/ also deploy.
           rsync -a --delete site/ "$DEST"/
           echo "Synced files:" && ls -1R "$DEST"
 

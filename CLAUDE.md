@@ -1,6 +1,6 @@
 # 改动本 repo 的规则（请严格遵守）
 
-这是 Isometry 团队 agentic payment 研究的页面集合。顶层 `site/index.html` 是研究索引，下面按子研究分目录（`initial-research/`、`sipeng-ideas-tree/` …）。`initial-research/` 内的页面按 `<负责人>-<主题>.html` 命名，**一个内容文件只属于一个人**。
+这是 Isometry 团队 agentic payment 研究的页面集合。顶层 `site/index.html` 是研究索引，下面按子研究分目录（`initial-research/`、`ideas-tree/` …）。`initial-research/` 内的页面按 `<负责人>-<主题>.html` 命名，**一个内容文件只属于一个人**。
 
 ## 核心规则
 
@@ -18,7 +18,7 @@
 | `site/initial-research/sipeng-permit.html` | 思芃 |
 | `site/initial-research/yingmiao-no-stablecoin.html` | 应淼 |
 | `site/initial-research/yingmiao-argument-map.html` | 应淼 |
-| `site/sipeng-ideas-tree/`（整个想法树目录） | 思芃（内容源自三人讨论） |
+| `site/ideas-tree/`（整个想法树目录） | 思芃（内容源自三人讨论） |
 
 ## 约束
 
