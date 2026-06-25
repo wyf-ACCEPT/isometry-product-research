@@ -1,0 +1,23 @@
+CLAUDE.md
+  s_3c36663240c7c0::t_cb13f67986189b 3,21
+site/index.html
+  s_3c36663240c7c0::t_cb13f67986189b 113
+.github/workflows/sync-to-pland-world.yml
+  s_3c36663240c7c0::t_cb13f67986189b 39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "23f536e0e1b3831548d65e982ca9e52875dc705b",
+  "prompts": {},
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
