@@ -1,0 +1,25 @@
+site/sipeng-ideas-tree/layer-1.html
+  s_3c36663240c7c0::t_630f07aa33ac2e 60-62
+site/sipeng-ideas-tree/layer-4.html
+  s_3c36663240c7c0::t_630f07aa33ac2e 60-62
+site/sipeng-ideas-tree/layer-3.html
+  s_3c36663240c7c0::t_630f07aa33ac2e 60-62
+site/sipeng-ideas-tree/layer-2.html
+  s_3c36663240c7c0::t_630f07aa33ac2e 60-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "af09ef891a33879e2a3678e1b98d96640ac2027d",
+  "prompts": {},
+  "sessions": {
+    "s_3c36663240c7c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f81faa80-9cfb-4b89-a1c6-8b72a654429e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
