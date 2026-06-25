@@ -1,0 +1,30 @@
+site/ideas-tree/layer-2.html
+  s_da7a720f5086c8::t_023767cfee0995 152,178,187
+  s_da7a720f5086c8::t_4e70e78c2ed42f 208
+site/ideas-tree/index.html
+  s_da7a720f5086c8::t_109cb69bdf13a8 130
+  s_da7a720f5086c8::t_df8e2595899fda 254
+  s_da7a720f5086c8::t_f84b85837980b2 289
+  s_da7a720f5086c8::t_843af463306cd3 328
+  s_da7a720f5086c8::t_5654b7f53be638 268-269
+  s_da7a720f5086c8::t_b259f7e96b555c 293
+  s_da7a720f5086c8::t_131b8c55e04b35 320-323
+  s_da7a720f5086c8::t_49628165c54ed1 275
+  s_da7a720f5086c8::t_feab108e1b47fe 311
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "f7f4f6035c60b9fcd25f1a96a56c960bf2457809",
+  "prompts": {},
+  "sessions": {
+    "s_da7a720f5086c8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "56054542-8b9b-4204-a9ea-deb5f6c4893d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "wyf-ACCEPT <importwyf@gmail.com>"
+    }
+  }
+}
